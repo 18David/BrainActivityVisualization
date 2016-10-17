@@ -5,23 +5,23 @@
 
 #ifndef _GMAINWINDOW_H
 #define _GMAINWINDOW_H
-
+#include <QDir>
 #include "QMainWindow.h"
 #include "AbstractMatrixReader.h"
 #include "MatrixStatisticWorkerManager.h"
-#include "MatrixStatisticWorkerManager.h"
 
 
-class GMainWindow: public QMainWindow {
+namespace Ui {
+class GMainWindow;
+}
+
+class GMainWindow : public QMainWindow
+{
+    Q_OBJECT
+
 public: 
-    
-    /**
-     * Affiche une fenêtre de dialogue permettant de choisir le répertoire des fichiers à lire
-     * 
-     * Connecté à l'action "Ouvrir" dans le menu
-     */
-    void openDirectory();
-    
+    explicit GMainWindow(QWidget *parent = 0);
+    ~GMainWindow();
     /**
      * Récupère les chemins des fichiers présent dans le dossier passé en paramètre.
      * 
@@ -32,17 +32,19 @@ public:
      * @param useMultithread
      */
     void computeDirectory(QDir dir, bool useMultithread);
+public slots:
+    /**
+     * Affiche une fenêtre de dialogue permettant de choisir le répertoire des fichiers à lire
+     *
+     * Connecté à l'action "Ouvrir" dans le menu
+     */
+    void openDirectory();
 private: 
-    /**
-     * QList contenant des pointeurs sur AbstractWordReader
-     */
-    Vector<AbstractMatrixReader> m_readers;
-    MatrixStatisticWorkerManager m_wordStatisticWorkerManager;
-    /**
-     * Attribut du type WordStatisticWorkerManager
-     */
-    MatrixStatisticWorkerManager m_matrixStatisticWorkerManager;
-    
+
+    Ui::GMainWindow *ui;
+    MatrixStatisticWorkerManager m_matrixManager;
+
+private slots:
     /**
      * Connecté au signal "computeFinished" du WordStatisticWorkerManager.
      * 

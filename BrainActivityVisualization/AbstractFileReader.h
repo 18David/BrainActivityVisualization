@@ -7,19 +7,19 @@
 #define _ABSTRACTFILEREADER_H
 
 #include "AbstractMatrixReader.h"
-
+#include <QFile>
 
 class AbstractFileReader: public AbstractMatrixReader {
 public: 
     
-    void AbstractFileReader();
+    AbstractFileReader();
     
-    void ~AbstractFileReader();
+    ~AbstractFileReader();
     
     /**
      * @param source
      */
-    bool setSource(FileSource* source);
+    bool setSource(QFile* source);
     
     QFile* file();
     
@@ -27,7 +27,7 @@ public:
     
     void close();
     
-    AbstractSource* getSource();
+    QFile* getSource();
 private: 
     QFile* m_file;
 };

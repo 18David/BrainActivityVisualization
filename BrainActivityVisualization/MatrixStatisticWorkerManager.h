@@ -8,6 +8,9 @@
 
 #include "AbstractWorker.h"
 #include "AbstractMatrixReader.h"
+#include <QList>
+#include <QFuture>
+#include <QFutureWatcher>
 
 
 class MatrixStatisticWorkerManager: public AbstractWorker {
@@ -45,9 +48,9 @@ protected:
      */
     void compute();
 private: 
-    float m_matrix[20][20][5];
-    QFuture<Qlist<float*>> m_future;
-    QFutureWatcher<Qlist<float*>> m_watcher;
+    QList<float> m_matrix[20][20][5];
+    QFuture<QList<float*>> m_future;
+    QFutureWatcher<QList<float*>> m_watcher;
     bool m_multithreadActivated;
     /**
      * QList contenant des pointeurs sur AbstractWordReader
@@ -58,7 +61,7 @@ private:
      * Assemble la liste des résultats dans le dictionnaire de cette classe (m_statisticMap)
      * @param results
      */
-    void assembleResults(const Qlist<float*> & results);
+    void assembleResults(const QList<float*> & results);
     
     /**
      * Crée un WordStatisticWorker, lui donne le lecteur de mot à utiliser et lance son traitement à l'aide la méthode "run"
@@ -66,7 +69,7 @@ private:
      * Retourne le résultat du worker
      * @param reader
      */
-    static Qlist<float*> staticRun(AbstractMatrixReader* reader);
+    static QList<float*> staticRun(AbstractMatrixReader* reader);
     
     void multithreadFinished();
 };

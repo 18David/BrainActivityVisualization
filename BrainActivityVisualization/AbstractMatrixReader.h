@@ -2,21 +2,24 @@
  * Project Untitled
  */
 
+#include <QString>
+
 
 #ifndef _ABSTRACTMATRIXREADER_H
 #define _ABSTRACTMATRIXREADER_H
 
-#include "ErrorInformer.h"
+//#include "ErrorInformer.h"
 
 
 class AbstractMatrixReader {
 public: 
-    
+    AbstractMatrixReader();
+    virtual ~AbstractMatrixReader();
     /**
      * méthode virtuelle pure
      * @param word
      */
-    virtual bool readNumber(QString& word) = 0;
+    virtual bool readNumber(QString& number) = 0;
     
     /**
      * méthode virtuelle pure
@@ -32,12 +35,7 @@ public:
      * méthode virtuelle pure
      */
     virtual void close() = 0;
-protected: 
-    
-    /**
-     * destructeur
-     */
-    virtual void AbstractMatrixReader() = 0;
+
 };
 
 #endif //_ABSTRACTMATRIXREADER_H

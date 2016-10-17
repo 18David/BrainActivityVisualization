@@ -38,11 +38,11 @@ void MatrixStatisticWorkerManager::setReaders(QList<AbstractMatrixReader*> reade
  * Retourne les résultats finaux
  * @return const Qlist<float*>&
  */
-const Qlist<float*>& MatrixStatisticWorkerManager::getResults() {
+const float *MatrixStatisticWorkerManager::getResults() {
     return null;
 }
 
-void MatrixStatisticWorkerManager::MatrixStatisticWorkerManager() {
+MatrixStatisticWorkerManager::MatrixStatisticWorkerManager() {
 
 }
 
@@ -57,7 +57,9 @@ void MatrixStatisticWorkerManager::MatrixStatisticWorkerManager() {
  * @return void
  */
 void MatrixStatisticWorkerManager::compute() {
-    return;
+    foreach (AbstractMatrixReader reader, m_readers) {
+       m_matrix.append(staticRun(reader));
+    }
 }
 
 /**
@@ -65,7 +67,7 @@ void MatrixStatisticWorkerManager::compute() {
  * @param results
  * @return void
  */
-void MatrixStatisticWorkerManager::assembleResults(const QList< Qlist<float*>> & results) {
+void MatrixStatisticWorkerManager::assembleResults(const Qlist<float *> &results) {
     return;
 }
 

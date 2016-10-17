@@ -2,9 +2,35 @@
  * Project Untitled
  */
 
+#include "abstractmatrixreader.h"
+#include "filenumberstreamreader.h"
+#include "gmainwindow.h"
+#include "ui_gmainwindow.h"
+#include <QFileDialog>
+#include <QMessageBox>
 
 #include "GMainWindow.h"
 
+
+GMainWindow::GMainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::GMainWindow)
+{
+    ui->setupUi(this);
+
+    ui->customPlot->xAxis->setAutoTicks(false);
+    ui->customPlot->xAxis->setAutoTickLabels(false);
+
+    ui->customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+
+    connect(&m_matrixManager,SIGNAL(computeFinishedTotally()),this,SLOT(computeFinished()));
+    connect(ui->actionOpen,SIGNAL(triggered(bool)),this,SLOT(openDirectory()));
+}
+
+GMainWindow::~GMainWindow()
+{
+    delete ui;
+}
 /**
  * GMainWindow implementation
  * 
@@ -18,8 +44,17 @@
  * Connecté à l'action "Ouvrir" dans le menu
  * @return void
  */
-void GMainWindow::openDirectory() {
-    return;
+void GMainWindow::openDirectory()
+    {
+        QString fileName = QFileDialog::getExistingDirectory(this,tr("Ouvrir"), "C:\\Users\\18gon\\OneDrive\\Documents\\OccurrenceDesMots");
+        if(fileName.isEmpty()){
+            QMessageBox::information(this,tr("Dossier Introuvable"),tr("Aucun dossier !"));
+        }else{
+            int ret = QMessageBox::question(this, "Multithread", "Utiliser multithread ?", QMessageBox::Yes | QMessageBox::No);
+            computeDirectory(QDir(fileName), ret == QMessageBox::Yes);
+
+    }
+
 }
 
 /**
@@ -32,8 +67,17 @@ void GMainWindow::openDirectory() {
  * @param useMultithread
  * @return void
  */
-void GMainWindow::computeDirectory(QDir dir, bool useMultithread) {
-    return;
+void GMainWindow::computeDirectory(QDir dir, bool useMultithread)
+{
+    QList<AbstractMatrixReader *> readers;
+    QList<QFileInfo> files = dir.entryInfoList(QStringList() << "*.cpp", QDir::Files);
+    for(int i=0;i<files.size();i++){
+        readers.append(new FileTextStreamReader(files.at(i).absoluteFilePath()));
+
+       m_matrixManager.setReaders(readers);
+       m_matrixManager.setUseMultithread(useMultithread);
+       m_matrixManager.run();
+    }
 }
 
 /**
@@ -42,6 +86,7 @@ void GMainWindow::computeDirectory(QDir dir, bool useMultithread) {
  * Lorsque ce slot est appelé il va récupérer  les résultats et les afficher dans la fenêtre
  * @return void
  */
-void GMainWindow::computeFinished() {
-    return;
+void GMainWindow::computeFinished()
+{
+
 }

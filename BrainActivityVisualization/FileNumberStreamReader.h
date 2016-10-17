@@ -9,6 +9,9 @@
 #include "AbstractFileReader.h"
 #include "AbstractMatrixReader.h"
 
+#include <QFile>
+#include <QTextStream>
+
 
 class FileNumberStreamReader: public AbstractMatrixReader {
 public: 
@@ -54,7 +57,7 @@ private:
      * 
      *  Attention le fichier doit tout d'abord être ouvert en lecture avant de le donner à QTextStream !
      */
-    QNumberStream* m_float;
+    QTextStream* m_float;
     /**
      * Attribut du type pointeur sur QFile
      * 

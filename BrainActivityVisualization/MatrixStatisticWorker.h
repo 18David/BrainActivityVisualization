@@ -8,12 +8,13 @@
 
 #include "AbstractWorker.h"
 #include "AbstractMatrixReader.h"
+#include "FileNumberStreamReader.h"
 
 
 class MatrixStatisticWorker: public AbstractWorker {
 public: 
     
-    void MatrixStatisticWorker();
+    MatrixStatisticWorker();
     
     /**
      * Définir quel lecteur de mot utiliser
@@ -39,7 +40,7 @@ private:
     /**
      * Attribut du type pointeur sur AbstractWordReader
      */
-    AbstractMatrixReader m_reader;
+    FileNumberStreamReader m_reader;
 };
 
 #endif //_MATRIXSTATISTICWORKER_H

@@ -12,12 +12,12 @@
 class AbstractWorker: public QObject {
 public: 
     AbstractWorker();
-    virtual void ~AbstractWorker() = 0;
+    virtual ~AbstractWorker();
     
     /**
      * Retourne la progression courante
      */
-    int getProgress();
+    int getProgress() const;
 public slots:
     /**
      * Met la progression courante à 0

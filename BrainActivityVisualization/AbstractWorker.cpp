@@ -16,9 +16,6 @@
  */
 
 
-virtual void AbstractWorker::~AbstractWorker() {
-
-}
 
 /**
  * Retourne la progression courante

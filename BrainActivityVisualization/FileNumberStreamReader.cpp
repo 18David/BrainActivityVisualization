@@ -19,14 +19,15 @@
  * @param filepath
  */
 void FileNumberStreamReader::FileTextStreamReader(const float& filepath) {
-
+    m_file = new QFile(filepath);
 }
 
 /**
  * Destructeur qui détruit les éléments en mémoire tel que le QFile et le QTextStream
  */
 void FileNumberStreamReader::~FileTextStreamReader() {
-
+    delete m_file;
+    delete m_stream;
 }
 
 /**
@@ -34,7 +35,10 @@ void FileNumberStreamReader::~FileTextStreamReader() {
  * @return bool
  */
 bool FileNumberStreamReader::open() {
-    return false;
+    bool tmp = m_file->open(QIODevice::ReadOnly);
+    if(tmp)
+        m_stream = new QTextStream(m_file);
+    return tmp;
 }
 
 /**
@@ -42,7 +46,7 @@ bool FileNumberStreamReader::open() {
  * @return void
  */
 void FileNumberStreamReader::close() {
-    return;
+    m_file->close();
 }
 
 /**
@@ -53,7 +57,22 @@ void FileNumberStreamReader::close() {
  * @return bool
  */
 bool FileNumberStreamReader::readNumber(float& number) {
-    return false;
+    QString number_str = "";
+    bool ok=false;
+    QString str="";
+    while(!ok && !atEnd()){
+        str="";
+        str=m_stream->read(1);
+        if(!(number_str==""&&str=="")){
+            if(str==","||str=="\n"){
+                ok=true;
+            }else{
+                number_str+=str;
+            }
+        }
+    }
+    number = number_str;
+    return ok;
 }
 
 /**
@@ -61,5 +80,5 @@ bool FileNumberStreamReader::readNumber(float& number) {
  * @return bool
  */
 bool FileNumberStreamReader::atEnd() {
-    return false;
+    return m_stream->atEnd();
 }

@@ -14,7 +14,6 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         gmainwindow.cpp \
-    AbstractFileReader.cpp \
     AbstractMatrixReader.cpp \
     AbstractWorker.cpp \
     FileNumberStreamReader.cpp \
@@ -23,7 +22,6 @@ SOURCES += main.cpp\
     QMainWindow.cpp
 
 HEADERS  += gmainwindow.h \
-    AbstractFileReader.h \
     AbstractMatrixReader.h \
     AbstractWorker.h \
     FileNumberStreamReader.h \

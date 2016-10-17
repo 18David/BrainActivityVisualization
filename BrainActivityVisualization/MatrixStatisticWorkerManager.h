@@ -13,7 +13,9 @@
 class MatrixStatisticWorkerManager: public AbstractWorker {
 public: 
     
-    void MatrixStatisticWorkerManager();
+    MatrixStatisticWorkerManager();
+    ~MatrixStatisticWorkerManager();
+
     
     /**
      * Défini si il faut utiliser le mode multithread ou non
@@ -30,11 +32,8 @@ public:
     /**
      * Retourne les résultats finaux
      */
-    const Qlist<float*>& getResults();
-protected: 
-    
-    void MatrixStatisticWorkerManager();
-    
+    const float* getResults();
+protected:     
     /**
      * Si le mode multithread n'est pas activé, parcours la liste des lecteurs de mot et les passe un par un à la méthode "staticRun".
      * 
@@ -46,20 +45,20 @@ protected:
      */
     void compute();
 private: 
-    Qlist<float*> m_EegRecord;
+    float m_matrix[20][20][5];
     QFuture<Qlist<float*>> m_future;
     QFutureWatcher<Qlist<float*>> m_watcher;
     bool m_multithreadActivated;
     /**
      * QList contenant des pointeurs sur AbstractWordReader
      */
-    Vector<AbstractMatrixReader> m_readers;
+    QList<AbstractMatrixReader> m_readers;
     
     /**
      * Assemble la liste des résultats dans le dictionnaire de cette classe (m_statisticMap)
      * @param results
      */
-    void assembleResults(const QList< Qlist<float*>> & results);
+    void assembleResults(const Qlist<float*> & results);
     
     /**
      * Crée un WordStatisticWorker, lui donne le lecteur de mot à utiliser et lance son traitement à l'aide la méthode "run"

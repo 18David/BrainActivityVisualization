@@ -22,23 +22,36 @@ void MatrixStatisticWorker::MatrixStatisticWorker() {
  * @return void
  */
 void MatrixStatisticWorker::setReader(AbstractMatrixReader* reader) {
-    return;
+    m_reader=reader;
 }
 
 /**
- * Retourne simplement le dictionnaire
- * @return const QList<float*>&
+ * Retourne simplement la matrix
+ * @return const float*
  */
-const QList<float*>& MatrixStatisticWorker::getResults() {
-    return null;
+const float * MatrixStatisticWorker::getResults() {
+    return m_matrix;
 }
 
 /**
  * Réalise le traitement :
  * 
- * demande au lecteur de mot les mots un par un et ajoute au dictionnaire le nombre d'occurence pour chaque mot
+ * demande au lecteur de mot les mots un par un et ajoute à la matrix le float
  * @return void
  */
 void MatrixStatisticWorker::compute() {
-    return;
+    float * nb;
+    bool ok = false;
+    if(m_reader->open()) {
+        ok= true;
+        for(int i=0;i<20;i++){
+            for(int j=0;j<20;j++){
+                for(int k=0;k<5;k++){
+                    m_reader->readNumber(nb);
+                    m_matrix[i][j][k]=nb;
+                }
+            }
+        }
+        m_reader->close();
+    } ;
 }

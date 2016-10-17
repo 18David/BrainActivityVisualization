@@ -10,19 +10,19 @@
 #include "AbstractMatrixReader.h"
 
 
-class FileNumberStreamReader: public AbstractFileReader, public AbstractMatrixReader {
+class FileNumberStreamReader: public AbstractMatrixReader {
 public: 
     
     /**
      * Constructeur prenant en paramètre le chemin du fichier à lire
      * @param filepath
      */
-    void FileTextStreamReader(const float& filepath);
+    FileTextStreamReader(const float& filepath);
     
     /**
      * Destructeur qui détruit les éléments en mémoire tel que le QFile et le QTextStream
      */
-    void ~FileTextStreamReader();
+    ~FileTextStreamReader();
     
     /**
      * Ouvre le fichier en lecture.

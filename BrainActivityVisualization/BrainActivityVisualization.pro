@@ -13,8 +13,22 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        gmainwindow.cpp
+        gmainwindow.cpp \
+    AbstractFileReader.cpp \
+    AbstractMatrixReader.cpp \
+    AbstractWorker.cpp \
+    FileNumberStreamReader.cpp \
+    MatrixStatisticWorker.cpp \
+    MatrixStatisticWorkerManager.cpp \
+    QMainWindow.cpp
 
-HEADERS  += gmainwindow.h
+HEADERS  += gmainwindow.h \
+    AbstractFileReader.h \
+    AbstractMatrixReader.h \
+    AbstractWorker.h \
+    FileNumberStreamReader.h \
+    MatrixStatisticWorker.h \
+    MatrixStatisticWorkerManager.h \
+    QMainWindow.h
 
 FORMS    += gmainwindow.ui

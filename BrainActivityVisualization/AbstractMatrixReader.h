@@ -9,7 +9,7 @@
 #include "ErrorInformer.h"
 
 
-class AbstractMatrixReader: public ErrorInformer {
+class AbstractMatrixReader {
 public: 
     
     /**

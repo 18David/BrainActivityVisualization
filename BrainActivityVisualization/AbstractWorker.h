@@ -11,14 +11,14 @@
 
 class AbstractWorker: public QObject {
 public: 
-    
+    AbstractWorker();
     virtual void ~AbstractWorker() = 0;
     
     /**
      * Retourne la progression courante
      */
     int getProgress();
-    
+public slots:
     /**
      * Met la progression courante à 0
      * 
@@ -29,7 +29,7 @@ public:
      * Emet le signal "finished"
      */
     void run();
-    
+signals:
     /**
      * @param progress
      */
@@ -48,7 +48,7 @@ protected:
      * Méthode virtuelle pure
      */
     virtual void compute() = 0;
-    
+protected slots:
     /**
      * Modifie la progression courante et emet le signal "progressChanged" si la progression a changée
      * @param progress

@@ -24,8 +24,8 @@ virtual void AbstractWorker::~AbstractWorker() {
  * Retourne la progression courante
  * @return int
  */
-int AbstractWorker::getProgress() {
-    return 0;
+int AbstractWorker::getProgress() const{
+    return m_progress;
 }
 
 /**
@@ -39,40 +39,13 @@ int AbstractWorker::getProgress() {
  * @return void
  */
 void AbstractWorker::run() {
-    return;
+    setProgress(0);
+    compute();
+    setProgress(100);
+    emit finished();
 }
 
-/**
- * @param progress
- * @return void
- */
-void AbstractWorker::progressChanged(int progress) {
-    return;
-}
 
-/**
- * @param min
- * @param max
- * @return void
- */
-void AbstractWorker::progressRangeChanged(int min, int max) {
-    return;
-}
-
-/**
- * @return void
- */
-void AbstractWorker::finished() {
-    return;
-}
-
-/**
- * Méthode virtuelle pure
- * @return void
- */
-virtual void AbstractWorker::compute() {
-    return;
-}
 
 /**
  * Modifie la progression courante et emet le signal "progressChanged" si la progression a changée
@@ -80,7 +53,10 @@ virtual void AbstractWorker::compute() {
  * @return void
  */
 void AbstractWorker::setProgress(int progress) {
-    return;
+    if(m_progress!=progress){
+        m_progress=progress;
+        emit progressChanged(progress);
+    }
 }
 
 /**
@@ -90,5 +66,6 @@ void AbstractWorker::setProgress(int progress) {
  * @return void
  */
 void AbstractWorker::setProgressRange(int min, int max) {
-    return;
+    m_minProgress=min;
+    m_maxProgress=max;
 }

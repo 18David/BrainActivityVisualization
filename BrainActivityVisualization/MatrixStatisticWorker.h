@@ -24,7 +24,7 @@ public:
     /**
      * Retourne simplement le dictionnaire
      */
-    const QList<float*>& getResults();
+    const float* getResults();
 protected: 
     
     /**
@@ -34,10 +34,8 @@ protected:
      */
     void compute();
 private: 
-    /**
-     * Dictionnaire avec comme clé une chaine de caractère (le mot) et en valeur un entier (le nombre d'occurence du mot)
-     */
-    Qlist<float*> m_EegRecord;
+
+    float m_matrix[20][20][5];
     /**
      * Attribut du type pointeur sur AbstractWordReader
      */

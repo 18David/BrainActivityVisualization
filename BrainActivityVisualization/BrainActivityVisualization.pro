@@ -18,15 +18,13 @@ SOURCES += main.cpp\
     AbstractWorker.cpp \
     FileNumberStreamReader.cpp \
     MatrixStatisticWorker.cpp \
-    MatrixStatisticWorkerManager.cpp \
-    QMainWindow.cpp
+    MatrixStatisticWorkerManager.cpp
 
 HEADERS  += gmainwindow.h \
     AbstractMatrixReader.h \
     AbstractWorker.h \
     FileNumberStreamReader.h \
     MatrixStatisticWorker.h \
-    MatrixStatisticWorkerManager.h \
-    QMainWindow.h
+    MatrixStatisticWorkerManager.h
 
 FORMS    += gmainwindow.ui

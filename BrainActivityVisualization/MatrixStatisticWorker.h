@@ -11,10 +11,10 @@
 #include "FileNumberStreamReader.h"
 
 
+
 class MatrixStatisticWorker: public AbstractWorker {
 public: 
     
-    MatrixStatisticWorker();
     
     /**
      * Définir quel lecteur de mot utiliser
@@ -25,7 +25,7 @@ public:
     /**
      * Retourne simplement le dictionnaire
      */
-    const float* getResults();
+    QList<float*> getResults() const;
 protected: 
     
     /**
@@ -40,7 +40,7 @@ private:
     /**
      * Attribut du type pointeur sur AbstractWordReader
      */
-    FileNumberStreamReader m_reader;
+    AbstractMatrixReader* m_reader;
 };
 
 #endif //_MATRIXSTATISTICWORKER_H

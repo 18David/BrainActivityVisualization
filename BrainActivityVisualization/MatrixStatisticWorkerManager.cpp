@@ -3,6 +3,8 @@
  */
 
 
+#include "FileNumberStreamReader.h"
+#include "MatrixStatisticWorker.h"
 #include "MatrixStatisticWorkerManager.h"
 
 /**
@@ -12,7 +14,7 @@
  */
 
 
-void MatrixStatisticWorkerManager::MatrixStatisticWorkerManager() {
+MatrixStatisticWorkerManager::MatrixStatisticWorkerManager() {
 
 }
 
@@ -22,7 +24,7 @@ void MatrixStatisticWorkerManager::MatrixStatisticWorkerManager() {
  * @return void
  */
 void MatrixStatisticWorkerManager::setUseMultithread(bool yes) {
-    return;
+    m_multithreadActivated=yes;
 }
 
 /**
@@ -38,13 +40,10 @@ void MatrixStatisticWorkerManager::setReaders(QList<AbstractMatrixReader*> reade
  * Retourne les résultats finaux
  * @return const Qlist<float*>&
  */
-const float *MatrixStatisticWorkerManager::getResults() {
-    return null;
+const QList<float *> MatrixStatisticWorkerManager::getResults() {
+    return m_matrix;
 }
 
-MatrixStatisticWorkerManager::MatrixStatisticWorkerManager() {
-
-}
 
 /**
  * Si le mode multithread n'est pas activé, parcours la liste des lecteurs de mot et les passe un par un à la méthode "staticRun".
@@ -57,9 +56,11 @@ MatrixStatisticWorkerManager::MatrixStatisticWorkerManager() {
  * @return void
  */
 void MatrixStatisticWorkerManager::compute() {
-    foreach (AbstractMatrixReader reader, m_readers) {
-       m_matrix.append(staticRun(reader));
+
+    for(int i=0;i<m_readers.size();i++){
+        m_matrix.append(staticRun(m_readers.at(i)));
     }
+
 }
 
 /**
@@ -67,19 +68,22 @@ void MatrixStatisticWorkerManager::compute() {
  * @param results
  * @return void
  */
-void MatrixStatisticWorkerManager::assembleResults(const Qlist<float *> &results) {
+/*void MatrixStatisticWorkerManager::assembleResults(const Qlist<float *> &results) {
     return;
-}
+}*/
 
 /**
  * Crée un WordStatisticWorker, lui donne le lecteur de mot à utiliser et lance son traitement à l'aide la méthode "run"
  * 
  * Retourne le résultat du worker
  * @param reader
- * @return Qlist<float*>
+ * @return float*
  */
-static Qlist<float*> MatrixStatisticWorkerManager::staticRun(AbstractMatrixReader* reader) {
-    return null;
+QList<float *> MatrixStatisticWorkerManager::staticRun(AbstractMatrixReader* reader) {
+    MatrixStatisticWorker tmp;
+    tmp.setReader(reader);
+    tmp.run();
+    return tmp.getResults();
 }
 
 /**

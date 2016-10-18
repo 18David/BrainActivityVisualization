@@ -20,12 +20,12 @@ public:
      * Constructeur prenant en paramètre le chemin du fichier à lire
      * @param filepath
      */
-    FileTextStreamReader(const float& filepath);
+    FileNumberStreamReader(const QString& filepath);
     
     /**
      * Destructeur qui détruit les éléments en mémoire tel que le QFile et le QTextStream
      */
-    ~FileTextStreamReader();
+    ~FileNumberStreamReader();
     
     /**
      * Ouvre le fichier en lecture.
@@ -43,7 +43,7 @@ public:
      * Renvoie true si la variable word n'est pas vide.
      * @param number
      */
-    bool readNumber(float& number);
+    bool readNumber(float& number);    
     
     /**
      * Renvoie true si on est à la fin du fichier ou si le fichier n'est pas ouvert.
@@ -57,7 +57,7 @@ private:
      * 
      *  Attention le fichier doit tout d'abord être ouvert en lecture avant de le donner à QTextStream !
      */
-    QTextStream* m_float;
+    QTextStream* m_stream;
     /**
      * Attribut du type pointeur sur QFile
      * 

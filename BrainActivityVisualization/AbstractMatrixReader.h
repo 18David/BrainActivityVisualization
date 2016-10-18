@@ -19,7 +19,7 @@ public:
      * méthode virtuelle pure
      * @param word
      */
-    virtual bool readNumber(QString& number) = 0;
+    virtual bool readNumber(float& number) = 0;
     
     /**
      * méthode virtuelle pure

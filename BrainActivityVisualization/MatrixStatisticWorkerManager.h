@@ -35,7 +35,7 @@ public:
     /**
      * Retourne les résultats finaux
      */
-    const float* getResults();
+    const QList<float *> getResults();
 protected:     
     /**
      * Si le mode multithread n'est pas activé, parcours la liste des lecteurs de mot et les passe un par un à la méthode "staticRun".
@@ -48,14 +48,14 @@ protected:
      */
     void compute();
 private: 
-    QList<float> m_matrix[20][20][5];
+    QList<float *> m_matrix;
     QFuture<QList<float*>> m_future;
     QFutureWatcher<QList<float*>> m_watcher;
     bool m_multithreadActivated;
     /**
      * QList contenant des pointeurs sur AbstractWordReader
      */
-    QList<AbstractMatrixReader> m_readers;
+    QList<AbstractMatrixReader *> m_readers;
     
     /**
      * Assemble la liste des résultats dans le dictionnaire de cette classe (m_statisticMap)
@@ -69,7 +69,7 @@ private:
      * Retourne le résultat du worker
      * @param reader
      */
-    static QList<float*> staticRun(AbstractMatrixReader* reader);
+    static QList<float *> staticRun(AbstractMatrixReader* reader);
     
     void multithreadFinished();
 };

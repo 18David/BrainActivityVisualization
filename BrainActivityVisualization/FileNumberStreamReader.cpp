@@ -18,14 +18,14 @@
  * Constructeur prenant en paramètre le chemin du fichier à lire
  * @param filepath
  */
-void FileNumberStreamReader::FileTextStreamReader(const float& filepath) {
+FileNumberStreamReader::FileNumberStreamReader(const QString& filepath) {
     m_file = new QFile(filepath);
 }
 
 /**
  * Destructeur qui détruit les éléments en mémoire tel que le QFile et le QTextStream
  */
-void FileNumberStreamReader::~FileTextStreamReader() {
+FileNumberStreamReader::~FileNumberStreamReader() {
     delete m_file;
     delete m_stream;
 }
@@ -71,7 +71,7 @@ bool FileNumberStreamReader::readNumber(float& number) {
             }
         }
     }
-    number = number_str;
+    number = number_str.toFloat();
     return ok;
 }
 

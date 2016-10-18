@@ -12,25 +12,25 @@
  */
 
 
-void MatrixStatisticWorker::MatrixStatisticWorker() {
 
-}
 
 /**
  * Définir quel lecteur de mot utiliser
  * @param reader
  * @return void
  */
-void MatrixStatisticWorker::setReader(AbstractMatrixReader* reader) {
-    m_reader=reader;
+void MatrixStatisticWorker::setReader(AbstractMatrixReader *reader) {
+    m_reader = reader;
 }
 
 /**
  * Retourne simplement la matrix
  * @return const float*
  */
-const float * MatrixStatisticWorker::getResults() {
-    return m_matrix;
+QList<float *> MatrixStatisticWorker::getResults() const{
+    QList<float *> tmp;
+    tmp.append(&m_matrix[0][0][0]);
+    return tmp;
 }
 
 /**
@@ -40,7 +40,7 @@ const float * MatrixStatisticWorker::getResults() {
  * @return void
  */
 void MatrixStatisticWorker::compute() {
-    float * nb;
+    float nb;
     bool ok = false;
     if(m_reader->open()) {
         ok= true;

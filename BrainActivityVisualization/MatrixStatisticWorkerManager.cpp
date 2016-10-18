@@ -32,6 +32,11 @@ void MatrixStatisticWorkerManager::setUseMultithread(bool yes) {
     m_multithreadActivated=yes;
 }
 
+void MatrixStatisticWorkerManager::setReaders(QList<AbstractMatrixReader *> readers)
+{
+   m_readers.append(readers);
+}
+
 /**
  * Définit la liste de lecteur de mots à utiliser dans la méthode "compute"
  * @param readers

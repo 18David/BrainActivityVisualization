@@ -67,7 +67,7 @@ void GMainWindow::openDirectory()
 void GMainWindow::computeDirectory(QDir dir, bool useMultithread)
 {
     QList<AbstractMatrixReader *> readers;
-    QList<QFileInfo> files = dir.entryInfoList(QStringList() << "*.cpp", QDir::Files);
+    QList<QFileInfo> files = dir.entryInfoList(QStringList() << "*.txt", QDir::Files);
     for(int i=0;i<files.size();i++){
         readers.append(new FileNumberStreamReader(files.at(i).absoluteFilePath()));
 

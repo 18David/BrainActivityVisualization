@@ -14,6 +14,7 @@
 
 
 class MatrixStatisticWorkerManager: public AbstractWorker {
+    Q_OBJECT
 public: 
     
     MatrixStatisticWorkerManager();

@@ -8,8 +8,9 @@
 #include "ui_gmainwindow.h"
 #include <QFileDialog>
 #include <QMessageBox>
-
+#include <QTableWidget>
 #include "GMainWindow.h"
+#include <QTableWidget>
 
 
 GMainWindow::GMainWindow(QWidget *parent) :
@@ -17,14 +18,19 @@ GMainWindow::GMainWindow(QWidget *parent) :
     ui(new Ui::GMainWindow)
 {
     ui->setupUi(this);
+    ui->tableWidget->setRowCount(20);
+    ui->tableWidget->setColumnCount(20);
 
-    ui->customPlot->xAxis->setAutoTicks(false);
-    ui->customPlot->xAxis->setAutoTickLabels(false);
+    int count = 1;
+    for (int i=0 ;i< ui->tableWidget->rowCount();i++)
+        for(int j=0 ; j< ui->tableWidget->columnCount(); j++)
+        {
+            QTableWidgetItem* itm = new QTableWidgetItem(tr("%1").arg(count));
 
-    ui->customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+            ui->tableWidget->setItem(i,j,itm);
+            count++;
+}
 
-    connect(&m_matrixManager,SIGNAL(computeFinishedTotally()),this,SLOT(computeFinished()));
-    connect(ui->actionOpen,SIGNAL(triggered(bool)),this,SLOT(openDirectory()));
 }
 
 GMainWindow::~GMainWindow()
@@ -62,7 +68,7 @@ void GMainWindow::openDirectory()
  * 
  * Pour chaque fichier crée un lecteur de mot et l'ajoute à la liste "m_readers"
  * 
- * Lance le traitement  sur les fichiers du dossier en multithread ou non (suivant la valeur du booléen passé en paramètre) en passant la liste "m_readers" au "m_wordStatisticWorkerManager" et en lancant le calcul à l'aide de sa méthode "run"
+ * Lance le traitement  sur les fichiers du dossier en multithread ou non (suivant la valeur du booléen passé en paramètre) en passant la liste "m_readers" au "m_wordStatisticMatrixManager" et en lancant le calcul à l'aide de sa méthode "run"
  * @param dir
  * @param useMultithread
  * @return void

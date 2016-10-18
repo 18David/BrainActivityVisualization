@@ -35,7 +35,7 @@ public:
     /**
      * Retourne les résultats finaux
      */
-    const QList<float *> getResults();
+    const QList<const float *> getResults();
 protected:     
     /**
      * Si le mode multithread n'est pas activé, parcours la liste des lecteurs de mot et les passe un par un à la méthode "staticRun".
@@ -48,7 +48,7 @@ protected:
      */
     void compute();
 private: 
-    QList<float *> m_matrix;
+    QList<const float *> m_matrix;
     QFuture<QList<float*>> m_future;
     QFutureWatcher<QList<float*>> m_watcher;
     bool m_multithreadActivated;
@@ -69,7 +69,7 @@ private:
      * Retourne le résultat du worker
      * @param reader
      */
-    static QList<float *> staticRun(AbstractMatrixReader* reader);
+    static const float *staticRun(AbstractMatrixReader* reader);
     
     void multithreadFinished();
 };

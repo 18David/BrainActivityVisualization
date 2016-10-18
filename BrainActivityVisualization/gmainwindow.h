@@ -6,10 +6,9 @@
 #ifndef _GMAINWINDOW_H
 #define _GMAINWINDOW_H
 #include <QDir>
-#include "QMainWindow.h"
+#include <QMainWindow>
 #include "AbstractMatrixReader.h"
 #include "MatrixStatisticWorkerManager.h"
-
 
 namespace Ui {
 class GMainWindow;

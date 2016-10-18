@@ -27,10 +27,8 @@ void MatrixStatisticWorker::setReader(AbstractMatrixReader *reader) {
  * Retourne simplement la matrix
  * @return const float*
  */
-QList<float *> MatrixStatisticWorker::getResults() const{
-    QList<float *> tmp;
-    tmp.append(&m_matrix[0][0][0]);
-    return tmp;
+const float * MatrixStatisticWorker::getResults() const{
+    return &m_matrix[0][0][0];
 }
 
 /**

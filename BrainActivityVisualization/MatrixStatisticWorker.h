@@ -25,7 +25,7 @@ public:
     /**
      * Retourne simplement le dictionnaire
      */
-    QList<float*> getResults() const;
+    const float* getResults() const;
 protected: 
     
     /**

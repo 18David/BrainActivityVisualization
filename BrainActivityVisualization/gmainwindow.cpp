@@ -2,14 +2,11 @@
  * Project Untitled
  */
 
-#include "abstractmatrixreader.h"
 #include "filenumberstreamreader.h"
 #include "gmainwindow.h"
 #include "ui_gmainwindow.h"
 #include <QFileDialog>
 #include <QMessageBox>
-#include <QTableWidget>
-#include "GMainWindow.h"
 #include <QTableWidget>
 
 

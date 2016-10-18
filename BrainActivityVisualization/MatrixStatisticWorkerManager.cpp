@@ -33,14 +33,14 @@ void MatrixStatisticWorkerManager::setUseMultithread(bool yes) {
  * @return void
  */
 void MatrixStatisticWorkerManager::setReaders(QList<AbstractMatrixReader*> readers) {
-    return;
+    m_readers= readers;
 }
 
 /**
  * Retourne les résultats finaux
  * @return const Qlist<float*>&
  */
-const QList<float *> MatrixStatisticWorkerManager::getResults() {
+const QList<const float *> MatrixStatisticWorkerManager::getResults() {
     return m_matrix;
 }
 
@@ -79,7 +79,7 @@ void MatrixStatisticWorkerManager::compute() {
  * @param reader
  * @return float*
  */
-QList<float *> MatrixStatisticWorkerManager::staticRun(AbstractMatrixReader* reader) {
+const float * MatrixStatisticWorkerManager::staticRun(AbstractMatrixReader* reader) {
     MatrixStatisticWorker tmp;
     tmp.setReader(reader);
     tmp.run();

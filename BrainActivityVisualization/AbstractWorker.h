@@ -10,6 +10,7 @@
 
 
 class AbstractWorker: public QObject {
+    Q_OBJECT
 public: 
     AbstractWorker();
     virtual ~AbstractWorker();

@@ -18,6 +18,11 @@ MatrixStatisticWorkerManager::MatrixStatisticWorkerManager() {
 
 }
 
+MatrixStatisticWorkerManager::~MatrixStatisticWorkerManager()
+{
+
+}
+
 /**
  * Défini si il faut utiliser le mode multithread ou non
  * @param yes

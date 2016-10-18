@@ -5,6 +5,7 @@
 
 #include "AbstractWorker.h"
 
+
 /**
  * AbstractWorker implementation
  * 
@@ -21,6 +22,16 @@
  * Retourne la progression courante
  * @return int
  */
+AbstractWorker::AbstractWorker()
+{
+
+}
+
+AbstractWorker::~AbstractWorker()
+{
+
+}
+
 int AbstractWorker::getProgress() const{
     return m_progress;
 }

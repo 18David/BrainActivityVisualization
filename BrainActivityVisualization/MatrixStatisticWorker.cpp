@@ -19,6 +19,16 @@
  * @param reader
  * @return void
  */
+MatrixStatisticWorker::MatrixStatisticWorker()
+{
+
+}
+
+MatrixStatisticWorker::~MatrixStatisticWorker()
+{
+
+}
+
 void MatrixStatisticWorker::setReader(AbstractMatrixReader *reader) {
     m_reader = reader;
 }

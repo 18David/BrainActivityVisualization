@@ -11,7 +11,6 @@
  * Classe abstraite permettant de lire nombre par nombre un fichier pour formaer une matrice
  */
 AbstractMatrixReader::AbstractMatrixReader() {
-
 }
 
 

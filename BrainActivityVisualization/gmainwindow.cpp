@@ -26,7 +26,7 @@ GMainWindow::GMainWindow(QWidget *parent) :
 
             ui->tableWidget->setItem(i,j,itm);
             count++;
-}
+        }
 
 }
 

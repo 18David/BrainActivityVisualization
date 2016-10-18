@@ -14,7 +14,8 @@
 
 class MatrixStatisticWorker: public AbstractWorker {
 public: 
-    
+    MatrixStatisticWorker();
+    ~MatrixStatisticWorker();
     
     /**
      * Définir quel lecteur de mot utiliser

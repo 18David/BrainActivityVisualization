@@ -18,15 +18,9 @@ GMainWindow::GMainWindow(QWidget *parent) :
     ui->tableWidget->setRowCount(20);
     ui->tableWidget->setColumnCount(20);
 
-    int count = 1;
-    for (int i=0 ;i< ui->tableWidget->rowCount();i++)
-        for(int j=0 ; j< ui->tableWidget->columnCount(); j++)
-        {
-            QTableWidgetItem* itm = new QTableWidgetItem(tr("%1").arg(count));
+    connect(&m_matrixManager,SIGNAL(computeFinishedTotally()),this,SLOT(computeFinished()));
+    connect(ui->actionOpen,SIGNAL(triggered(bool)),this,SLOT(openDirectory()));
 
-            ui->tableWidget->setItem(i,j,itm);
-            count++;
-        }
 
 }
 
@@ -91,5 +85,23 @@ void GMainWindow::computeDirectory(QDir dir, bool useMultithread)
  */
 void GMainWindow::computeFinished()
 {
+    QList<QVector<QVector<QVector<float>>>> res;
+    m_matrixManager.getResults();
+    //traitement pour afficher
+    foreach (QVector<QVector<QVector<float>>> matrix, res) {
+        for (int i=0 ;i< ui->tableWidget->rowCount();i++){
+            for(int j=0 ; j< ui->tableWidget->columnCount(); j++)
+            {
+                float tmp=0.0;
+                for(int k=0; k<5; k++){
+                    tmp+=matrix[i][j][k];
+                }
+                QTableWidgetItem* itm = new QTableWidgetItem(tr("%1").arg(tmp));
+
+                ui->tableWidget->setItem(i,j,itm);
+            }
+        }
+    }
+
 
 }

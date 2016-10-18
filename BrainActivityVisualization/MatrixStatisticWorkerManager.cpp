@@ -37,15 +37,15 @@ void MatrixStatisticWorkerManager::setUseMultithread(bool yes) {
  * @param readers
  * @return void
  */
-void MatrixStatisticWorkerManager::setReaders(QList<AbstractMatrixReader*> readers) {
+/*void MatrixStatisticWorkerManager::setReaders(QList<AbstractMatrixReader*> readers) {
     m_readers= readers;
-}
+}*/
 
 /**
  * Retourne les résultats finaux
  * @return const Qlist<float*>&
  */
-const QList<const float *> MatrixStatisticWorkerManager::getResults() {
+const QList<QVector<QVector<QVector<float>>>> MatrixStatisticWorkerManager::getResults() {
     return m_matrix;
 }
 
@@ -65,17 +65,21 @@ void MatrixStatisticWorkerManager::compute() {
     for(int i=0;i<m_readers.size();i++){
         m_matrix.append(staticRun(m_readers.at(i)));
     }
+    emit computeFinishedTotally();
 
 }
+
 
 /**
  * Assemble la liste des résultats dans le dictionnaire de cette classe (m_statisticMap)
  * @param results
  * @return void
  */
-/*void MatrixStatisticWorkerManager::assembleResults(const Qlist<float *> &results) {
-    return;
+/*void MatrixStatisticWorkerManager::assembleResults(const QList<float *> &results)
+{
+    results=m_matrix;
 }*/
+
 
 /**
  * Crée un WordStatisticWorker, lui donne le lecteur de mot à utiliser et lance son traitement à l'aide la méthode "run"
@@ -84,7 +88,7 @@ void MatrixStatisticWorkerManager::compute() {
  * @param reader
  * @return float*
  */
-const float * MatrixStatisticWorkerManager::staticRun(AbstractMatrixReader* reader) {
+const QVector<QVector<QVector<float>>> MatrixStatisticWorkerManager::staticRun(AbstractMatrixReader* reader) {
     MatrixStatisticWorker tmp;
     tmp.setReader(reader);
     tmp.run();

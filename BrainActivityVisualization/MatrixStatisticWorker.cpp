@@ -37,8 +37,8 @@ void MatrixStatisticWorker::setReader(AbstractMatrixReader *reader) {
  * Retourne simplement la matrix
  * @return const float*
  */
-const float * MatrixStatisticWorker::getResults() const{
-    return &m_matrix[0][0][0];
+const QVector<QVector<QVector<float>>> MatrixStatisticWorker::getResults() const{
+    return m_matrix;
 }
 
 /**

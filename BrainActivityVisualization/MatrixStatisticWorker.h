@@ -10,6 +10,8 @@
 #include "AbstractMatrixReader.h"
 #include "FileNumberStreamReader.h"
 
+#include <QVector>
+
 
 
 class MatrixStatisticWorker: public AbstractWorker {
@@ -26,7 +28,7 @@ public:
     /**
      * Retourne simplement le dictionnaire
      */
-    const float* getResults() const;
+    const QVector<QVector<QVector<float>>> getResults() const;
 protected: 
     
     /**
@@ -37,7 +39,7 @@ protected:
     void compute();
 private: 
 
-    float m_matrix[20][20][5];
+    QVector<QVector<QVector<float>>> m_matrix;
     /**
      * Attribut du type pointeur sur AbstractWordReader
      */

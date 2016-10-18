@@ -35,7 +35,7 @@ public:
     /**
      * Retourne les résultats finaux
      */
-    const QList<const float *> getResults();
+    const QList<QVector<QVector<QVector<float> > > > getResults();
 protected:     
     /**
      * Si le mode multithread n'est pas activé, parcours la liste des lecteurs de mot et les passe un par un à la méthode "staticRun".
@@ -48,9 +48,9 @@ protected:
      */
     void compute();
 private: 
-    QList<const float *> m_matrix;
-    QFuture<QList<float*>> m_future;
-    QFutureWatcher<QList<float*>> m_watcher;
+    QList<QVector<QVector<QVector<float>>>> m_matrix;
+    QFuture<QList<QVector<QVector<QVector<float>>>>> m_future;
+    QFutureWatcher<QList<QVector<QVector<QVector<float>>>>> m_watcher;
     bool m_multithreadActivated;
     /**
      * QList contenant des pointeurs sur AbstractWordReader
@@ -69,12 +69,16 @@ private:
      * Retourne le résultat du worker
      * @param reader
      */
-    static const float * staticRun(AbstractMatrixReader* reader);
+    static const QVector<QVector<QVector<float> > > staticRun(AbstractMatrixReader* reader);
     // reader : input,
     // tab : output, array of
    // bool staticRun(const AbstractMatrixReader* reader, std::vector<float>& tab);
     
+
+private slots:
     void multithreadFinished();
+signals:
+    void computeFinishedTotally();
 };
 
 #endif //_MATRIXSTATISTICWORKERMANAGER_H

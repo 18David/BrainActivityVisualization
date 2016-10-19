@@ -109,7 +109,7 @@ void MatrixStatisticWorkerManager::compute()
  * @param reader
  * @return float*
  */
-const QVector<QVector<QVector<float>>> MatrixStatisticWorkerManager::staticRun(AbstractMatrixReader* reader) {
+QVector<QVector<QVector<float>>> MatrixStatisticWorkerManager::staticRun(AbstractMatrixReader* reader) {
     MatrixStatisticWorker tmp;
     tmp.setReader(reader);
     tmp.run();

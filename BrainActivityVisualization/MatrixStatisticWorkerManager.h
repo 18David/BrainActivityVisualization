@@ -70,7 +70,7 @@ private:
      * Retourne le résultat du worker
      * @param reader
      */
-    static const QVector<QVector<QVector<float> > > staticRun(AbstractMatrixReader* reader);
+    static QVector<QVector<QVector<float> > > staticRun(AbstractMatrixReader* reader);
     // reader : input,
     // tab : output, array of
    // bool staticRun(const AbstractMatrixReader* reader, std::vector<float>& tab);

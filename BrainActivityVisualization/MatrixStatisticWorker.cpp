@@ -22,6 +22,19 @@
 MatrixStatisticWorker::MatrixStatisticWorker()
 {
 
+    QVector<QVector<QVector<float>>> tmp_dim1(20);
+    m_matrix.append(tmp_dim1);
+    for(int i=0;i<20;i++){
+        QVector<QVector<float>> tmp_dim2(20);
+        m_matrix[i].append(tmp_dim2);
+        for(int j=0;j<20;j++){
+            QVector<float> tmp_dim3(5,0.0);
+            m_matrix[i][j].append(tmp_dim3);
+        }
+
+    }
+
+
 }
 
 MatrixStatisticWorker::~MatrixStatisticWorker()

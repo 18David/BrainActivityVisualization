@@ -86,17 +86,18 @@ void GMainWindow::computeDirectory(QDir dir, bool useMultithread)
 void GMainWindow::computeFinished()
 {
     QList<QVector<QVector<QVector<float>>>> res;
-    m_matrixManager.getResults();
+    res= m_matrixManager.getResults();
     //traitement pour afficher
     foreach (QVector<QVector<QVector<float>>> matrix, res) {
         for (int i=0 ;i< ui->tableWidget->rowCount();i++){
             for(int j=0 ; j< ui->tableWidget->columnCount(); j++)
             {
-                float tmp=0.0;
+                QString tmp="[";
                 for(int k=0; k<5; k++){
-                    tmp+=matrix[i][j][k];
+                    tmp+=tr("%1;").arg(matrix[i][j][k]);
                 }
-                QTableWidgetItem* itm = new QTableWidgetItem(tr("%1").arg(tmp));
+                tmp+="]";
+                QTableWidgetItem* itm = new QTableWidgetItem(tmp);
 
                 ui->tableWidget->setItem(i,j,itm);
             }

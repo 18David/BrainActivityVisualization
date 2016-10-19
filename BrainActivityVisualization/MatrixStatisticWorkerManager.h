@@ -50,8 +50,8 @@ protected:
     void compute();
 private: 
     QList<QVector<QVector<QVector<float>>>> m_matrix;
-    QFuture<QList<QVector<QVector<QVector<float>>>>> m_future;
-    QFutureWatcher<QList<QVector<QVector<QVector<float>>>>> m_watcher;
+    QFuture<QVector<QVector<QVector<float>>>> m_future;
+    QFutureWatcher<QVector<QVector<QVector<float>>>> m_watcher;
     bool m_multithreadActivated;
     /**
      * QList contenant des pointeurs sur AbstractWordReader

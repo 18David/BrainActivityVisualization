@@ -29,6 +29,7 @@ HEADERS  += gmainwindow.h \
     MatrixStatisticWorker.h \
     MatrixStatisticWorkerManager.h \
     coherenceworker.h \
-    coherenceworkermanager.h
+    coherenceworkermanager.h \
+    MatrixStatisticWorkerManager.h
 
 FORMS    += gmainwindow.ui

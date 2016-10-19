@@ -13,6 +13,7 @@ public:
     CoherenceWorkerManager();
     ~CoherenceWorkerManager();
 
+    void setStartTime(QList<int> startTime);
 
     /**
      * Défini si il faut utiliser le mode multithread ou non
@@ -40,10 +41,10 @@ private:
     QFuture<QList<QVector<QVector<QVector<float>>>>> m_future;
     QFutureWatcher<QList<QVector<QVector<QVector<float>>>>> m_watcher;
     bool m_multithreadActivated;
-    int m_startTime;
+    QList<int> m_startTime;
 
 
-    static const QVector<QVector<QVector<float> > > staticRun();
+    static const QVector<QVector<QVector<float> > > staticRun(int startTime);
 
 
 private slots:

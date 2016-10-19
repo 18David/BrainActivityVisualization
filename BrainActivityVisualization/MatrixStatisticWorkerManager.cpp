@@ -6,6 +6,7 @@
 #include "FileNumberStreamReader.h"
 #include "MatrixStatisticWorker.h"
 #include "MatrixStatisticWorkerManager.h"
+#include <QtConcurrent/QtConcurrent>
 
 /**
  * MatrixStatisticWorkerManager implementation
@@ -65,12 +66,27 @@ const QList<QVector<QVector<QVector<float>>>> MatrixStatisticWorkerManager::getR
  * Emet le signal finished
  * @return void
  */
-void MatrixStatisticWorkerManager::compute() {
+void MatrixStatisticWorkerManager::compute()
+{
 
-    for(int i=0;i<m_readers.size();i++){
-        m_matrix.append(staticRun(m_readers.at(i)));
+    if(!m_multithreadActivated)
+    {
+
+        setProgressRange(0, m_readers.size());
+
+        for(int i=0;i<m_readers.size();i++)
+        {
+            m_matrix.append(staticRun(m_readers.at(i)));
+        }
+        emit computeFinishedTotally();
+
     }
-    emit computeFinishedTotally();
+
+    else
+    {
+        m_future = QtConcurrent::mapped(m_readers, &staticRun);
+        m_watcher.setFuture(m_future);
+    }
 
 }
 
@@ -103,6 +119,8 @@ const QVector<QVector<QVector<float>>> MatrixStatisticWorkerManager::staticRun(A
 /**
  * @return void
  */
-/*void MatrixStatisticWorkerManager::multithreadFinished() {
-    return;
-}*/
+void MatrixStatisticWorkerManager::multithreadFinished()
+{
+   m_matrix=m_future.results();
+   emit computeFinishedTotally();
+}

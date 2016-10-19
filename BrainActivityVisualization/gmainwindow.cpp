@@ -21,6 +21,9 @@ GMainWindow::GMainWindow(QWidget *parent) :
     connect(&m_matrixManager,SIGNAL(computeFinishedTotally()),this,SLOT(computeFinished()));
     connect(ui->actionOpen,SIGNAL(triggered(bool)),this,SLOT(openDirectory()));
 
+    connect(&m_matrixManager, SIGNAL(progressChanged(int)), ui->progressBar, SLOT(setValue(int)));
+    connect(&m_matrixManager, SIGNAL(progressRangeChanged(int,int)), ui->progressBar, SLOT(setRange(int,int)));
+
 
 }
 

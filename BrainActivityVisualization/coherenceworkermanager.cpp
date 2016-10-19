@@ -37,3 +37,8 @@ const QVector<QVector<QVector<float> > > CoherenceWorkerManager::staticRun(int s
     QVector<QVector<QVector<float> > > m;
     return m;
 }
+
+void CoherenceWorkerManager::coherenceMultithreadFinished()
+{
+
+}

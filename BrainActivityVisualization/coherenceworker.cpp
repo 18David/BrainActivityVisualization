@@ -1,5 +1,4 @@
 #include "coherenceworker.h"
-#include "MatrixStatisticWorker.h"
 
 CoherenceWorker::CoherenceWorker()
 {
@@ -23,15 +22,15 @@ CoherenceWorker::~CoherenceWorker()
 {
 
 }
-void MatrixStatisticWorker::setReader(AbstractMatrixReader *reader)
+void CoherenceWorker::setReader(AbstractMatrixReader *reader)
 {
     m_reader = reader;
 }
-const QVector<QVector<QVector<float>>> MatrixStatisticWorker::getResults() const
+const QVector<QVector<QVector<float>>> CoherenceWorker::getResults() const
 {
     return m_matrix;
 }
-void MatrixStatisticWorker::compute()
+void CoherenceWorker::compute()
 {
     float nb;
     bool ok = false;

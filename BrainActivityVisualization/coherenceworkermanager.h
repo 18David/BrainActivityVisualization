@@ -48,9 +48,9 @@ private:
 
 
 private slots:
-    void multithreadFinished();
+    void coherenceMultithreadFinished();
 signals:
-    void computeFinishedTotally();
+    void coherenceComputeFinishedTotally();
 };
 
 

@@ -122,5 +122,5 @@ const QVector<QVector<QVector<float>>> MatrixStatisticWorkerManager::staticRun(A
 void MatrixStatisticWorkerManager::multithreadFinished()
 {
    m_matrix=m_future.results();
-   emit computeTotallyFinished();
+   emit computeFinishedTotally();
 }

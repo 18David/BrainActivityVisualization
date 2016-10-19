@@ -9,7 +9,6 @@
 #include "AbstractWorker.h"
 #include "AbstractMatrixReader.h"
 #include "FileNumberStreamReader.h"
-
 #include <QVector>
 
 

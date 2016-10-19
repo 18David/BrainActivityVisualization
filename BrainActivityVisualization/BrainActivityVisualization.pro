@@ -18,13 +18,17 @@ SOURCES += main.cpp\
     AbstractWorker.cpp \
     FileNumberStreamReader.cpp \
     MatrixStatisticWorker.cpp \
-    MatrixStatisticWorkerManager.cpp
+    MatrixStatisticWorkerManager.cpp \
+    coherenceworker.cpp \
+    coherenceworkermanager.cpp
 
 HEADERS  += gmainwindow.h \
     AbstractMatrixReader.h \
     AbstractWorker.h \
     FileNumberStreamReader.h \
     MatrixStatisticWorker.h \
-    MatrixStatisticWorkerManager.h
+    MatrixStatisticWorkerManager.h \
+    coherenceworker.h \
+    coherenceworkermanager.h
 
 FORMS    += gmainwindow.ui

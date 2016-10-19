@@ -103,6 +103,6 @@ const QVector<QVector<QVector<float>>> MatrixStatisticWorkerManager::staticRun(A
 /**
  * @return void
  */
-void MatrixStatisticWorkerManager::multithreadFinished() {
+/*void MatrixStatisticWorkerManager::multithreadFinished() {
     return;
-}
+}*/

@@ -77,7 +77,7 @@ private:
     
 
 private slots:
-    //void multithreadFinished();
+    void multithreadFinished();
 signals:
     void computeFinishedTotally();
 };

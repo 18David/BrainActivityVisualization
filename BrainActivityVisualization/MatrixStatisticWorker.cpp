@@ -65,9 +65,9 @@ void MatrixStatisticWorker::compute() {
     bool ok = false;
     if(m_reader->open()) {
         ok= true;
-        for(int i=0;i<20;i++){
-            for(int j=0;j<20;j++){
-                for(int k=0;k<5;k++){
+        for(int i=0;i<20;i++){            
+            for(int k=0;k<5;k++){
+                for(int j=0;j<20;j++){
                     m_reader->readNumber(nb);
                     m_matrix[i][j][k]=nb;
                 }

@@ -14,18 +14,72 @@
    <string>GMainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="QTableWidget" name="tableWidget"/>
-    </item>
-    <item row="1" column="0">
-     <widget class="QProgressBar" name="progressBar">
-      <property name="value">
-       <number>0</number>
-      </property>
-     </widget>
-    </item>
-   </layout>
+   <widget class="QWidget" name="gridLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1171</width>
+      <height>581</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0,0,0,0,0">
+       <item row="3" column="3">
+        <widget class="QLineEdit" name="lineEditMaxRange"/>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="lineEditMiniRange"/>
+       </item>
+       <item row="3" column="5">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Minimum range</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Maximum range</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="4">
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>Update</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="1" column="0">
+      <widget class="QTableWidget" name="tableWidget"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QProgressBar" name="progressBar">
+       <property name="value">
+        <number>0</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

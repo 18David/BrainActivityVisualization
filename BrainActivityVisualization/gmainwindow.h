@@ -42,6 +42,13 @@ private:
 
     Ui::GMainWindow *ui;
     MatrixStatisticWorkerManager m_matrixManager;
+    float minRange;
+
+
+
+protected:
+    void paintEvent(QPaintEvent *evt);
+
 
 private slots:
     /**

@@ -9,7 +9,6 @@
 #include <QMessageBox>
 #include <QTableWidget>
 
-
 GMainWindow::GMainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::GMainWindow)
@@ -46,9 +45,9 @@ GMainWindow::~GMainWindow()
  */
 void GMainWindow::openDirectory()
     {
-        QString fileName = QFileDialog::getExistingDirectory(this,tr("Ouvrir"), "C:\\Users\\18gon\\OneDrive\\Documents\\OccurrenceDesMots");
+        QString fileName = QFileDialog::getOpenFileName(this,tr("Open a file"),"","Matrix file (*.txt)");
         if(fileName.isEmpty()){
-            QMessageBox::information(this,tr("Dossier Introuvable"),tr("Aucun dossier !"));
+            QMessageBox::information(this,tr("Fichier Introuvable"),tr("Aucun fichier !"));
         }else{
             int ret = QMessageBox::question(this, "Multithread", "Utiliser multithread ?", QMessageBox::Yes | QMessageBox::No);
             computeDirectory(QDir(fileName), ret == QMessageBox::Yes);
@@ -88,8 +87,9 @@ void GMainWindow::computeDirectory(QDir dir, bool useMultithread)
  */
 void GMainWindow::computeFinished()
 {
-    QList<QVector<QVector<QVector<float>>>> res;
-    res= m_matrixManager.getResults();
+    int points[20][2]={{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}};
+    QList<QVector<QVector<int>>> res;
+    //res= m_matrixManager.getResults();
     //traitement pour afficher
     foreach (QVector<QVector<QVector<float>>> matrix, res) {
         for (int i=0 ;i< ui->tableWidget->rowCount();i++){

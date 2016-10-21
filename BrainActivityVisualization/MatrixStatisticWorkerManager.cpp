@@ -16,6 +16,7 @@
 
 
 MatrixStatisticWorkerManager::MatrixStatisticWorkerManager() {
+    connect(&m_watcher, SIGNAL(finished()), this, SLOT(multithreadFinished()));
 
 }
 

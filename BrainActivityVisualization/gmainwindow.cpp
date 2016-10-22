@@ -18,8 +18,7 @@ GMainWindow::GMainWindow(QWidget *parent) :
     ui->tableWidget->setColumnCount(20);
 
     connect(&m_matrixManager,SIGNAL(computeFinishedTotally()),this,SLOT(computeFinished()));
-    connect(ui->actionOpen,SIGNAL(triggered(bool)),this,SLOT(openDirectory()));
-
+    connect(ui->actionOpen,SIGNAL(triggered(bool)),this,SLOT(openFile()));
     connect(&m_matrixManager, SIGNAL(progressChanged(int)), ui->progressBar, SLOT(setValue(int)));
     connect(&m_matrixManager, SIGNAL(progressRangeChanged(int,int)), ui->progressBar, SLOT(setRange(int,int)));
 
@@ -43,14 +42,14 @@ GMainWindow::~GMainWindow()
  * Connecté à l'action "Ouvrir" dans le menu
  * @return void
  */
-void GMainWindow::openDirectory()
+void GMainWindow::openFile()
     {
         QString fileName = QFileDialog::getOpenFileName(this,tr("Open a file"),"","Matrix file (*.txt)");
         if(fileName.isEmpty()){
             QMessageBox::information(this,tr("Fichier Introuvable"),tr("Aucun fichier !"));
         }else{
-            int ret = QMessageBox::question(this, "Multithread", "Utiliser multithread ?", QMessageBox::Yes | QMessageBox::No);
-            computeDirectory(QDir(fileName), ret == QMessageBox::Yes);
+            //int ret = QMessageBox::question(this, "Multithread", "Utiliser multithread ?", QMessageBox::Yes | QMessageBox::No);
+            computeFile(QDir(fileName), false/*ret == QMessageBox::Yes*/);
 
     }
 
@@ -66,7 +65,7 @@ void GMainWindow::openDirectory()
  * @param useMultithread
  * @return void
  */
-void GMainWindow::computeDirectory(QDir dir, bool useMultithread)
+void GMainWindow::computeFile(QDir dir, bool useMultithread)
 {
     QList<AbstractMatrixReader *> readers;
     QList<QFileInfo> files = dir.entryInfoList(QStringList() << "*.txt", QDir::Files);
@@ -76,6 +75,7 @@ void GMainWindow::computeDirectory(QDir dir, bool useMultithread)
        m_matrixManager.setReaders(readers);
        m_matrixManager.setUseMultithread(useMultithread);
        m_matrixManager.run();
+       m_coherenceManager.setMatrix(m_matrixManager.getResults());
     }
 }
 
@@ -87,24 +87,14 @@ void GMainWindow::computeDirectory(QDir dir, bool useMultithread)
  */
 void GMainWindow::computeFinished()
 {
-    int points[20][2]={{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}};
-    QList<QVector<QVector<int>>> res;
-    //res= m_matrixManager.getResults();
+   // int points[20][2]={{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}};
+    QList<QPoint *> res;
+    res= m_coherenceManager.getResults();
     //traitement pour afficher
-    foreach (QVector<QVector<QVector<float>>> matrix, res) {
-        for (int i=0 ;i< ui->tableWidget->rowCount();i++){
-            for(int j=0 ; j< ui->tableWidget->columnCount(); j++)
-            {
-                QString tmp="[";
-                for(int k=0; k<5; k++){
-                    tmp+=tr("%1;").arg(matrix[i][j][k]);
-                }
-                tmp+="]";
-                QTableWidgetItem* itm = new QTableWidgetItem(tmp);
-
-                ui->tableWidget->setItem(i,j,itm);
-            }
-        }
+    foreach(QPoint * line,res){
+        //draw line
+        //line[0] point de depart
+        //line[1] point d'arrivee
     }
 
 

@@ -9,6 +9,7 @@
 #include <QMainWindow>
 #include "AbstractMatrixReader.h"
 #include "MatrixStatisticWorkerManager.h"
+#include "coherenceworkermanager.h"
 
 namespace Ui {
 class GMainWindow;
@@ -30,19 +31,20 @@ public:
      * @param dir
      * @param useMultithread
      */
-    void computeDirectory(QDir dir, bool useMultithread);
+    void computeFile(QDir dir, bool useMultithread);
 public slots:
     /**
      * Affiche une fenêtre de dialogue permettant de choisir le répertoire des fichiers à lire
      *
      * Connecté à l'action "Ouvrir" dans le menu
      */
-    void openDirectory();
+    void openFile();
 private: 
 
     Ui::GMainWindow *ui;
     MatrixStatisticWorkerManager m_matrixManager;
     float minRange;
+    CoherenceWorkerManager m_coherenceManager;
 
 
 

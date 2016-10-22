@@ -11,34 +11,52 @@ CoherenceWorkerManager::~CoherenceWorkerManager()
 
 }
 
-void CoherenceWorkerManager::setStartTime(QList<int> startTime)
+void CoherenceWorkerManager::setMatrix(QVector<QVector<QVector<float>>> matrix)
 {
-    m_startTime=startTime;
+    m_matrix=matrix;
 }
 
-const QList<QVector<QVector<QVector<float> > > > CoherenceWorkerManager::getResults()
+const QList<QPoint *> CoherenceWorkerManager::getResults()
 {
-    return m_matrix;
+    return m_points;
 }
 
 void CoherenceWorkerManager::compute()
 {
-    foreach (int i, m_startTime) {
-         m_matrix.append(staticRun(i));
+
+    int points[20][2]={{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}};
+    int max_i=1;
+    for (int j=1;j<20;j++){ //pacours de la partie superieur de la matrix par rapport a la mediane
+        for (int i=0;i<max_i;i++) {
+            for(int k=0; k<5;k++){
+                if(inRange(m_matrix[i][j][k])){
+                    QPoint tmp[2];
+                    tmp[1].setX(points[i][0]);
+                    tmp[1].setY(points[i][1]);
+                    tmp[2].setX(points[j][0]);
+                    tmp[2].setY(points[j][1]);
+                    m_points.append(tmp);
+                }
+            }
+        }
+        max_i++;
     }
-
 }
 
-const QVector<QVector<QVector<float> > > CoherenceWorkerManager::staticRun(int startTime)
-{
-    CoherenceWorker tmp;
-    //tmp.run(startTime);
-    //return tmp.getResults();
-    QVector<QVector<QVector<float> > > m;
-    return m;
-}
-
-void CoherenceWorkerManager::coherenceMultithreadFinished()
+/*QList<QPoint *> CoherenceWorkerManager::staticRun()
 {
 
+}*/
+
+bool CoherenceWorkerManager::inRange(float nb)
+{
+    if(nb>m_minRange&&nb<m_maxRange){
+        return true;
+    }
+    return false;
 }
+
+/*void CoherenceWorkerManager::coherenceMultithreadFinished()
+{
+
+}*/

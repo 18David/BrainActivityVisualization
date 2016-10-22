@@ -16,7 +16,7 @@
 
 
 MatrixStatisticWorkerManager::MatrixStatisticWorkerManager() {
-    connect(&m_watcher, SIGNAL(finished()), this, SLOT(multithreadFinished()));
+   // connect(&m_watcher, SIGNAL(finished()), this, SLOT(multithreadFinished()));
 
 }
 
@@ -52,7 +52,7 @@ void MatrixStatisticWorkerManager::setReaders(QList<AbstractMatrixReader *> read
  * Retourne les résultats finaux
  * @return const Qlist<float*>&
  */
-const QList<QVector<QVector<QVector<float>>>> MatrixStatisticWorkerManager::getResults() {
+const QVector<QVector<QVector<float> > > MatrixStatisticWorkerManager::getResults() {
     return m_matrix;
 }
 
@@ -83,12 +83,12 @@ void MatrixStatisticWorkerManager::compute()
 
     }
 
-    else
+   /* else
     {
         m_future = QtConcurrent::mapped(m_readers, &staticRun);
         m_watcher.setFuture(m_future);
     }
-
+*/
 }
 
 
@@ -122,6 +122,6 @@ QVector<QVector<QVector<float>>> MatrixStatisticWorkerManager::staticRun(Abstrac
  */
 void MatrixStatisticWorkerManager::multithreadFinished()
 {
-   m_matrix=m_future.results();
+  //s m_matrix=m_future.results();
    emit computeFinishedTotally();
 }

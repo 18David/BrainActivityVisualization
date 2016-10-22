@@ -36,7 +36,7 @@ public:
     /**
      * Retourne les résultats finaux
      */
-    const QList<QVector<QVector<QVector<float> > > > getResults();
+    const QVector<QVector<QVector<float> > > getResults();
 protected:     
     /**
      * Si le mode multithread n'est pas activé, parcours la liste des lecteurs de mot et les passe un par un à la méthode "staticRun".
@@ -49,9 +49,9 @@ protected:
      */
     void compute();
 private: 
-    QList<QVector<QVector<QVector<float>>>> m_matrix;
-    QFuture<QVector<QVector<QVector<float>>>> m_future;
-    QFutureWatcher<QVector<QVector<QVector<float>>>> m_watcher;
+    QVector<QVector<QVector<float>>> m_matrix;
+    //QFuture<QVector<QVector<QVector<float>>>> m_future;
+    //QFutureWatcher<QVector<QVector<QVector<float>>>> m_watcher;
     bool m_multithreadActivated;
     /**
      * QList contenant des pointeurs sur AbstractWordReader

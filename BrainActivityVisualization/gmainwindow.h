@@ -45,11 +45,12 @@ private:
     MatrixStatisticWorkerManager m_matrixManager;
     float minRange;
     CoherenceWorkerManager m_coherenceManager;
+    QString m_fileName;
 
 
 
 protected:
-    void paintEvent(QPaintEvent *evt);
+    //void paintEvent(QPaintEvent *evt);
 
 
 private slots:
@@ -59,6 +60,7 @@ private slots:
      * Lorsque ce slot est appelé il va récupérer  les résultats et les afficher dans la fenêtre
      */
     void computeFinished();
+    void setCoherenceRange(float min,float max);
 };
 
 #endif //_GMAINWINDOW_H

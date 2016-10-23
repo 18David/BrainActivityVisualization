@@ -16,6 +16,12 @@ void CoherenceWorkerManager::setMatrix(QVector<QVector<QVector<float>>> matrix)
     m_matrix=matrix;
 }
 
+void CoherenceWorkerManager::setRange(float min, float max)
+{
+    m_minRange=min;
+    m_maxRange=max;
+}
+
 const QList<QPoint *> CoherenceWorkerManager::getResults()
 {
     return m_points;

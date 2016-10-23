@@ -8,6 +8,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QTableWidget>
+#include <QPoint>
 
 GMainWindow::GMainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -17,11 +18,14 @@ GMainWindow::GMainWindow(QWidget *parent) :
     ui->tableWidget->setRowCount(20);
     ui->tableWidget->setColumnCount(20);
 
+    m_coherenceManager.setRange(0.5,2.0);   // VALEUR PAR DEFAUT A MODIFIER !!!!!!
+    ui->lineEditMiniRange->setText("0.5");  // min
+    ui->lineEditMaxRange->setText("2.0");   // max
     connect(&m_matrixManager,SIGNAL(computeFinishedTotally()),this,SLOT(computeFinished()));
     connect(ui->actionOpen,SIGNAL(triggered(bool)),this,SLOT(openFile()));
     connect(&m_matrixManager, SIGNAL(progressChanged(int)), ui->progressBar, SLOT(setValue(int)));
     connect(&m_matrixManager, SIGNAL(progressRangeChanged(int,int)), ui->progressBar, SLOT(setRange(int,int)));
-
+    connect(ui->pushButtonUp, SIGNAL(releaseMouse()), this, SLOT(setCoherenceRange(float,float)));
 
 }
 
@@ -44,12 +48,13 @@ GMainWindow::~GMainWindow()
  */
 void GMainWindow::openFile()
     {
-        QString fileName = QFileDialog::getOpenFileName(this,tr("Open a file"),"","Matrix file (*.txt)");
-        if(fileName.isEmpty()){
+        m_fileName = QFileDialog::getOpenFileName(this,tr("Open a file"),"","Matrix file (*.txt)");
+        if(m_fileName.isEmpty()){
             QMessageBox::information(this,tr("Fichier Introuvable"),tr("Aucun fichier !"));
         }else{
+
             //int ret = QMessageBox::question(this, "Multithread", "Utiliser multithread ?", QMessageBox::Yes | QMessageBox::No);
-            computeFile(QDir(fileName), false/*ret == QMessageBox::Yes*/);
+            computeFile(QDir(m_fileName), false/*ret == QMessageBox::Yes*/);
 
     }
 
@@ -92,10 +97,18 @@ void GMainWindow::computeFinished()
     res= m_coherenceManager.getResults();
     //traitement pour afficher
     foreach(QPoint * line,res){
-        //draw line
-        //line[0] point de depart
-        //line[1] point d'arrivee
+        /* draw line
+         * line[0] point de depart
+         * line[1] point d'arrivee
+        */
     }
 
+
+}
+
+void GMainWindow::setCoherenceRange(float min, float max)
+{
+    m_coherenceManager.setRange(min,max);
+    computeFile(QDir(m_fileName),false);
 
 }

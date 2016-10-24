@@ -32,4 +32,8 @@ HEADERS  += gmainwindow.h \
     coherenceworkermanager.h \
     MatrixStatisticWorkerManager.h
 
-FORMS    += gmainwindow.ui
+FORMS    += gmainwindow.ui \
+    gpaintwidget.ui
+
+RESOURCES += \
+    resources.qrc

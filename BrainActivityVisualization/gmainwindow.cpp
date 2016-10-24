@@ -9,19 +9,23 @@
 #include <QMessageBox>
 #include <QTableWidget>
 #include <QPoint>
+#include <QPainter>
+#include <QPaintEvent>
+#include <QGraphicsScene>
 
 GMainWindow::GMainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::GMainWindow)
 {
     ui->setupUi(this);
+
     ui->tableWidget->setRowCount(20);
     ui->tableWidget->setColumnCount(20);
 
-    m_coherenceManager.setRange(0.5,2.0);   // VALEUR PAR DEFAUT A MODIFIER !!!!!!
-    ui->lineEditMiniRange->setText("0.5");  // min
+    m_coherenceManager.setRange(0,2.0);   // VALEUR PAR DEFAUT A MODIFIER !!!!!!
+    ui->lineEditMiniRange->setText("0");  // min
     ui->lineEditMaxRange->setText("2.0");   // max
-    connect(&m_matrixManager,SIGNAL(computeFinishedTotally()),this,SLOT(computeFinished()));
+    connect(&m_coherenceManager,SIGNAL(computeFinishedTotally()),this,SLOT(computeFinished()));
     connect(ui->actionOpen,SIGNAL(triggered(bool)),this,SLOT(openFile()));
     connect(&m_matrixManager, SIGNAL(progressChanged(int)), ui->progressBar, SLOT(setValue(int)));
     connect(&m_matrixManager, SIGNAL(progressRangeChanged(int,int)), ui->progressBar, SLOT(setRange(int,int)));
@@ -54,9 +58,14 @@ void GMainWindow::openFile()
         }else{
 
             //int ret = QMessageBox::question(this, "Multithread", "Utiliser multithread ?", QMessageBox::Yes | QMessageBox::No);
-            computeFile(QDir(m_fileName), false/*ret == QMessageBox::Yes*/);
+            computeFile();
 
     }
+
+}
+
+void GMainWindow::paintEvent(QPaintEvent *evt)
+{
 
 }
 
@@ -70,18 +79,19 @@ void GMainWindow::openFile()
  * @param useMultithread
  * @return void
  */
-void GMainWindow::computeFile(QDir dir, bool useMultithread)
+void GMainWindow::computeFile()
 {
     QList<AbstractMatrixReader *> readers;
-    QList<QFileInfo> files = dir.entryInfoList(QStringList() << "*.txt", QDir::Files);
-    for(int i=0;i<files.size();i++){
-        readers.append(new FileNumberStreamReader(files.at(i).absoluteFilePath()));
+    //QList<QFileInfo> files = dir.entryInfoList(QStringList() << "*.txt", QDir::Files);
+    //for(int i=0;i<files.size();i++){
+        readers.append(new FileNumberStreamReader(m_fileName/*files.at(i).absoluteFilePath()*/));
 
        m_matrixManager.setReaders(readers);
-       m_matrixManager.setUseMultithread(useMultithread);
+       //m_matrixManager.setUseMultithread(useMultithread);
        m_matrixManager.run();
        m_coherenceManager.setMatrix(m_matrixManager.getResults());
-    }
+       m_coherenceManager.run();
+   // }
 }
 
 /**
@@ -92,23 +102,49 @@ void GMainWindow::computeFile(QDir dir, bool useMultithread)
  */
 void GMainWindow::computeFinished()
 {
-   // int points[20][2]={{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}};
+    QVector<QVector<QVector<float>>> resMatrix;
+    resMatrix = m_matrixManager.getResults();
+
+    for (int i=0 ;i< ui->tableWidget->rowCount();i++){
+        for(int j=0 ; j< ui->tableWidget->columnCount(); j++)
+        {
+            QString tmp="[";
+            for(int k=0; k<5; k++){
+                tmp+=tr("%1;").arg(resMatrix[i][j][k]);
+            }
+            tmp+="]";
+            QTableWidgetItem* itm = new QTableWidgetItem(tmp);
+
+            ui->tableWidget->setItem(i,j,itm);
+        }
+    }
+
     QList<QPoint *> res;
     res= m_coherenceManager.getResults();
     //traitement pour afficher
+    QPixmap pix("://Images/EEG 21.png");
+
+    QPainter *painter = new QPainter(ui->QWidgetpaint);
+
+    //painter->setRenderHints(QPainter::Antialiasing);
+    QPen pen;
+    pen.setWidth(100);
+    pen.setCapStyle(Qt::RoundCap);
+    pen.setColor(Qt::red);
+    painter->setPen(pen);
+
     foreach(QPoint * line,res){
-        /* draw line
-         * line[0] point de depart
-         * line[1] point d'arrivee
-        */
+
+        painter->drawPoint(line[0]);
+        //painter->drawPoint(line[1]);
+        //painter->drawLine(line[0], line[1]);
     }
-
-
+    painter->setBackground(pix);
 }
 
 void GMainWindow::setCoherenceRange(float min, float max)
 {
     m_coherenceManager.setRange(min,max);
-    computeFile(QDir(m_fileName),false);
+    computeFile();
 
 }

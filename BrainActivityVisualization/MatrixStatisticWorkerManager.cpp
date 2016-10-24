@@ -79,7 +79,7 @@ void MatrixStatisticWorkerManager::compute()
         {
             m_matrix.append(staticRun(m_readers.at(i)));
         }
-        emit computeFinishedTotally();
+        //emit computeFinishedTotally();
 
     }
 

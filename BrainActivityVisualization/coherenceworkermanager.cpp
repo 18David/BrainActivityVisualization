@@ -1,6 +1,8 @@
 #include "coherenceworkermanager.h"
 #include "coherenceworker.h"
 
+#include <QPoint>
+
 CoherenceWorkerManager::CoherenceWorkerManager()
 {
 
@@ -30,7 +32,7 @@ const QList<QPoint *> CoherenceWorkerManager::getResults()
 void CoherenceWorkerManager::compute()
 {
 
-    int points[20][2]={{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}};
+    int points[20][2]={{1,1},{2,2},{3,3},{4,4},{5,5},{6,6},{7,7},{8,8},{9,9},{10,10},{11,11},{12,12},{13,13},{14,14},{16,16},{17,17},{18,18},{19,19},{20,20},{21,21}};
     int max_i=1;
     for (int j=1;j<20;j++){ //pacours de la partie superieur de la matrix par rapport a la mediane
         for (int i=0;i<max_i;i++) {
@@ -47,6 +49,7 @@ void CoherenceWorkerManager::compute()
         }
         max_i++;
     }
+    emit computeFinishedTotally();
 }
 
 /*QList<QPoint *> CoherenceWorkerManager::staticRun()

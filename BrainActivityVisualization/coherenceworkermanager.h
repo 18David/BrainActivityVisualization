@@ -52,7 +52,7 @@ private:
 private slots:
   //  void coherenceMultithreadFinished();
 signals:
-   // void coherenceComputeFinishedTotally();
+    void computeFinishedTotally();
 };
 
 

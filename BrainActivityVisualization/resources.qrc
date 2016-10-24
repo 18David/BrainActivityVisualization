@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Images/EEG 21.png</file>
+    </qresource>
+</RCC>

@@ -31,7 +31,8 @@ public:
      * @param dir
      * @param useMultithread
      */
-    void computeFile(QDir dir, bool useMultithread);
+    void computeFile();
+
 public slots:
     /**
      * Affiche une fenêtre de dialogue permettant de choisir le répertoire des fichiers à lire
@@ -50,7 +51,7 @@ private:
 
 
 protected:
-    //void paintEvent(QPaintEvent *evt);
+    void paintEvent(QPaintEvent *evt);
 
 
 private slots:

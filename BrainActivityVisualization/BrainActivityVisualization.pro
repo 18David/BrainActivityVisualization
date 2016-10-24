@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     MatrixStatisticWorker.cpp \
     MatrixStatisticWorkerManager.cpp \
     coherenceworker.cpp \
-    coherenceworkermanager.cpp
+    coherenceworkermanager.cpp \
+    coherencewidget.cpp
 
 HEADERS  += gmainwindow.h \
     AbstractMatrixReader.h \
@@ -30,7 +31,8 @@ HEADERS  += gmainwindow.h \
     MatrixStatisticWorkerManager.h \
     coherenceworker.h \
     coherenceworkermanager.h \
-    MatrixStatisticWorkerManager.h
+    MatrixStatisticWorkerManager.h \
+    coherencewidget.h
 
 FORMS    += gmainwindow.ui \
     gpaintwidget.ui

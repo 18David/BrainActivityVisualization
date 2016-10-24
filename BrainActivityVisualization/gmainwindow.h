@@ -9,6 +9,7 @@
 #include <QMainWindow>
 #include "AbstractMatrixReader.h"
 #include "MatrixStatisticWorkerManager.h"
+#include "coherencewidget.h"
 #include "coherenceworkermanager.h"
 
 namespace Ui {
@@ -47,6 +48,7 @@ private:
     float minRange;
     CoherenceWorkerManager m_coherenceManager;
     QString m_fileName;
+    CoherenceWidget win;
 
 
 

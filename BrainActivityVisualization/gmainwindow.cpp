@@ -8,10 +8,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QTableWidget>
-#include <QPoint>
-#include <QPainter>
-#include <QPaintEvent>
-#include <QGraphicsScene>
+#include <coherencewidget.h>
 
 GMainWindow::GMainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -21,10 +18,11 @@ GMainWindow::GMainWindow(QWidget *parent) :
 
     ui->tableWidget->setRowCount(20);
     ui->tableWidget->setColumnCount(20);
-
     m_coherenceManager.setRange(0,2.0);   // VALEUR PAR DEFAUT A MODIFIER !!!!!!
     ui->lineEditMiniRange->setText("0");  // min
     ui->lineEditMaxRange->setText("2.0");   // max
+    //win = new CoherenceWidget(this);
+
     connect(&m_coherenceManager,SIGNAL(computeFinishedTotally()),this,SLOT(computeFinished()));
     connect(ui->actionOpen,SIGNAL(triggered(bool)),this,SLOT(openFile()));
     connect(&m_matrixManager, SIGNAL(progressChanged(int)), ui->progressBar, SLOT(setValue(int)));
@@ -119,7 +117,16 @@ void GMainWindow::computeFinished()
         }
     }
 
-    QList<QPoint *> res;
+    //win->setShape(Line);
+    QPen pen;
+    pen.setWidth(100);
+    pen.setCapStyle(Qt::RoundCap);
+    pen.setColor(Qt::red);
+    win.resize(QSize(537,480));
+    win.setPen(pen);
+    win.setBrush(QBrush());
+    win.show();
+    /*QList<QPoint *> res;
     res= m_coherenceManager.getResults();
     //traitement pour afficher
     QPixmap pix("://Images/EEG 21.png");
@@ -139,7 +146,7 @@ void GMainWindow::computeFinished()
         //painter->drawPoint(line[1]);
         //painter->drawLine(line[0], line[1]);
     }
-    painter->setBackground(pix);
+    painter->setBackground(pix);*/
 }
 
 void GMainWindow::setCoherenceRange(float min, float max)

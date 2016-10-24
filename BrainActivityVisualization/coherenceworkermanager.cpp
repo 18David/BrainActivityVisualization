@@ -38,12 +38,13 @@ void CoherenceWorkerManager::compute()
         for (int i=0;i<max_i;i++) {
             for(int k=0; k<5;k++){
                 if(inRange(m_matrix[i][j][k])){
-                    QPoint tmp[2];
+                    QPoint * tmp = new QPoint[2];
                     tmp[0].setX(points[i][0]);
                     tmp[0].setY(points[i][1]);
                     tmp[1].setX(points[j][0]);
                     tmp[1].setY(points[j][1]);
                     m_points.append(tmp);
+                    delete tmp;
                 }
             }
         }

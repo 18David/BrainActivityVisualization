@@ -3,6 +3,7 @@
 #include <QPaintEvent>
 #include <QPen>
 #include <QWidget>
+#include <QList>
 
 
 
@@ -19,7 +20,7 @@ public:
 
     QSize minimumSizeHint() const;
     QSize sizeHint() const;
-
+    void setPoints(QList<QPoint*>points);
 public slots:
     void setShape(Shape shape);
     void setPen(const QPen &pen);
@@ -37,6 +38,7 @@ private:
     bool antialiased;
     bool transformed;
     QPixmap pixmap;
+    QList<QPoint *> m_points;
 };
 
 #endif // COHERENCEWIDGET_H

@@ -17,17 +17,16 @@ CoherenceWidget::CoherenceWidget()
 
 void CoherenceWidget::paintEvent(QPaintEvent * /* event */)
 {
-    static const QPoint points[4] = {
-        QPoint(10, 80),
-        QPoint(20, 10),
-        QPoint(80, 30),
-        QPoint(90, 70)
-    };
 
     QPainter painter(this);
     painter.setPen(pen);
     painter.setBrush(brush);
-    painter.drawPoint(points[1]);
+    foreach(QPoint * line,m_points){
+
+        painter.drawPoint(line[0]);
+        painter.drawPoint(line[1]);
+        //painter->drawLine(line[0], line[1]);
+    }
     pixmap = pixmap.scaled(this->size(),Qt::IgnoreAspectRatio);
     QPalette palette;
     palette.setBrush(QPalette::Background,pixmap);
@@ -37,6 +36,11 @@ void CoherenceWidget::paintEvent(QPaintEvent * /* event */)
 QSize CoherenceWidget::sizeHint() const
 {
     return QSize(400, 200);
+}
+
+void CoherenceWidget::setPoints(QList<QPoint *> points)
+{
+    m_points = points;
 }
 QSize CoherenceWidget::minimumSizeHint() const
 {

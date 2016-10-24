@@ -27,7 +27,7 @@ GMainWindow::GMainWindow(QWidget *parent) :
     connect(ui->actionOpen,SIGNAL(triggered(bool)),this,SLOT(openFile()));
     connect(&m_matrixManager, SIGNAL(progressChanged(int)), ui->progressBar, SLOT(setValue(int)));
     connect(&m_matrixManager, SIGNAL(progressRangeChanged(int,int)), ui->progressBar, SLOT(setRange(int,int)));
-    connect(ui->pushButtonUp, SIGNAL(releaseMouse()), this, SLOT(setCoherenceRange(float,float)));
+    connect(ui->pushButtonUp, SIGNAL(clicked(bool)), this, SLOT(setCoherenceRange(float,float)));
 
 }
 
@@ -119,16 +119,20 @@ void GMainWindow::computeFinished()
 
     //win->setShape(Line);
     QPen pen;
-    pen.setWidth(100);
+    pen.setWidth(20);
     pen.setCapStyle(Qt::RoundCap);
     pen.setColor(Qt::red);
+
+    QList<QPoint *> res;
+    res= m_coherenceManager.getResults();
+
+    win.setPoints(res);
     win.resize(QSize(537,480));
     win.setPen(pen);
     win.setBrush(QBrush());
     win.show();
-    /*QList<QPoint *> res;
-    res= m_coherenceManager.getResults();
-    //traitement pour afficher
+
+    /*//traitement pour afficher
     QPixmap pix("://Images/EEG 21.png");
 
     QPainter *painter = new QPainter(ui->QWidgetpaint);

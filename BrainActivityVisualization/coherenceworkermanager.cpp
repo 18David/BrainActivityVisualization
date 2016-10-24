@@ -32,17 +32,17 @@ const QList<QPoint *> CoherenceWorkerManager::getResults()
 void CoherenceWorkerManager::compute()
 {
 
-    int points[20][2]={{1,1},{2,2},{3,3},{4,4},{5,5},{6,6},{7,7},{8,8},{9,9},{10,10},{11,11},{12,12},{13,13},{14,14},{16,16},{17,17},{18,18},{19,19},{20,20},{21,21}};
+    int points[20][2]={{130,343},{339,329},{267,243},{269,300},{200,330},{406,342},{214,405},{323,404},{438,243},{406,144},{354,243},{338,157},{324,81},{268,157},{183,243},{199,157},{213,81},{97,243},{130,144},{269,410}};
     int max_i=1;
     for (int j=1;j<20;j++){ //pacours de la partie superieur de la matrix par rapport a la mediane
         for (int i=0;i<max_i;i++) {
             for(int k=0; k<5;k++){
                 if(inRange(m_matrix[i][j][k])){
                     QPoint tmp[2];
-                    tmp[1].setX(points[i][0]);
-                    tmp[1].setY(points[i][1]);
-                    tmp[2].setX(points[j][0]);
-                    tmp[2].setY(points[j][1]);
+                    tmp[0].setX(points[i][0]);
+                    tmp[0].setY(points[i][1]);
+                    tmp[1].setX(points[j][0]);
+                    tmp[1].setY(points[j][1]);
                     m_points.append(tmp);
                 }
             }

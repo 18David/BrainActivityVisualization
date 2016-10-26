@@ -13,14 +13,14 @@ class CoherenceWidget : public QWidget
 
 public:
     CoherenceWidget();
+    CoherenceWidget(QString name);
     enum Shape { Line, Points, Polyline, Polygon, Rect, RoundedRect, Ellipse, Arc,
                  Chord, Pie, Path, Text, Pixmap };
 
     RenderArea(QWidget *parent = 0);
-
     QSize minimumSizeHint() const;
     QSize sizeHint() const;
-    void setPoints(QList<QPoint*>points);
+    void setPoints(QList<QVector<QPoint> > points);
 public slots:
     void setShape(Shape shape);
     void setPen(const QPen &pen);
@@ -38,7 +38,7 @@ private:
     bool antialiased;
     bool transformed;
     QPixmap pixmap;
-    QList<QPoint *> m_points;
+    QList<QVector<QPoint>> m_points;
 };
 
 #endif // COHERENCEWIDGET_H

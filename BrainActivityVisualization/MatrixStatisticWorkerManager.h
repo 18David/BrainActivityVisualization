@@ -37,6 +37,7 @@ public:
      * Retourne les résultats finaux
      */
     const QVector<QVector<QVector<float> > > getResults();
+    void raz();
 protected:     
     /**
      * Si le mode multithread n'est pas activé, parcours la liste des lecteurs de mot et les passe un par un à la méthode "staticRun".

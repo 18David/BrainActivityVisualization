@@ -41,6 +41,7 @@ signals:
      * @param max
      */
     void progressRangeChanged(int min, int max);
+
     
     void finished();
 protected: 

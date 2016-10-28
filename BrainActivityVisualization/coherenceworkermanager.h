@@ -25,7 +25,8 @@ public:
     /**
      * Retourne les résultats finaux
      */
-    const QList<QPoint *> getResults();
+    const QVector<QList<QVector<QPoint> > > getResults();
+    void raz();
 protected:
     /**
      * Si le mode multithread n'est pas activé, parcours la liste des lecteurs de mot et les passe un par un à la méthode "staticRun".
@@ -42,11 +43,11 @@ private:
     //QFuture<QList<QVector<QVector<QVector<float>>>>> m_future;
     //QFutureWatcher<QList<QVector<QVector<QVector<float>>>>> m_watcher;
    // bool m_multithreadActivated;
-    QList<QPoint *> m_points;
+    QVector<QList<QVector<QPoint>>> m_points;
     float m_minRange;
     float m_maxRange;
 
-    static QList<QPoint *> staticRun();
+    static QList<QVector<QPoint>> staticRun();
     bool inRange(float nb);
 
 private slots:

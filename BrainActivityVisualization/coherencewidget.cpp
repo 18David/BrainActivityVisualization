@@ -15,17 +15,26 @@ CoherenceWidget::CoherenceWidget()
     //setAutoFillBackground(true);
 }
 
+CoherenceWidget::CoherenceWidget(QString name): QWidget()
+{
+    this->setWindowTitle(name);
+    shape = Polygon;
+    antialiased = false;
+    transformed = false;
+    pixmap.load(":/Images/EEG 21.png");
+}
+
+
 void CoherenceWidget::paintEvent(QPaintEvent * /* event */)
 {
 
     QPainter painter(this);
     painter.setPen(pen);
     painter.setBrush(brush);
-    foreach(QPoint * line,m_points){
-
+    foreach(QVector<QPoint> line,m_points){
         painter.drawPoint(line[0]);
         painter.drawPoint(line[1]);
-        //painter->drawLine(line[0], line[1]);
+        painter.drawLine(line[0], line[1]);
     }
     pixmap = pixmap.scaled(this->size(),Qt::IgnoreAspectRatio);
     QPalette palette;
@@ -38,7 +47,7 @@ QSize CoherenceWidget::sizeHint() const
     return QSize(400, 200);
 }
 
-void CoherenceWidget::setPoints(QList<QPoint *> points)
+void CoherenceWidget::setPoints(QList<QVector<QPoint>> points)
 {
     m_points = points;
 }

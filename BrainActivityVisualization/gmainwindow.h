@@ -33,7 +33,7 @@ public:
      * @param useMultithread
      */
     void computeFile();
-
+    void raz();
 public slots:
     /**
      * Affiche une fenêtre de dialogue permettant de choisir le répertoire des fichiers à lire
@@ -48,7 +48,7 @@ private:
     float minRange;
     CoherenceWorkerManager m_coherenceManager;
     QString m_fileName;
-    CoherenceWidget win;
+
 
 
 
@@ -63,7 +63,8 @@ private slots:
      * Lorsque ce slot est appelé il va récupérer  les résultats et les afficher dans la fenêtre
      */
     void computeFinished();
-    void setCoherenceRange(float min,float max);
+    void setCoherenceRange(bool e);
+
 };
 
 #endif //_GMAINWINDOW_H

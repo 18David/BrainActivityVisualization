@@ -56,6 +56,11 @@ const QVector<QVector<QVector<float> > > MatrixStatisticWorkerManager::getResult
     return m_matrix;
 }
 
+void MatrixStatisticWorkerManager::raz()
+{
+    //m_matrix.erase(0);
+}
+
 
 /**
  * Si le mode multithread n'est pas activé, parcours la liste des lecteurs de mot et les passe un par un à la méthode "staticRun".

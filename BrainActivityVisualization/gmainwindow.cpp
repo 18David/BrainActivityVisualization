@@ -18,16 +18,16 @@ GMainWindow::GMainWindow(QWidget *parent) :
 
     ui->tableWidget->setRowCount(20);
     ui->tableWidget->setColumnCount(20);
-    m_coherenceManager.setRange(0,2.0);   // VALEUR PAR DEFAUT A MODIFIER !!!!!!
+    m_coherenceManager.setRange(0,0.1);   // VALEUR PAR DEFAUT A MODIFIER !!!!!!
     ui->lineEditMiniRange->setText("0");  // min
-    ui->lineEditMaxRange->setText("2.0");   // max
+    ui->lineEditMaxRange->setText("0.1");   // max
     //win = new CoherenceWidget(this);
 
     connect(&m_coherenceManager,SIGNAL(computeFinishedTotally()),this,SLOT(computeFinished()));
     connect(ui->actionOpen,SIGNAL(triggered(bool)),this,SLOT(openFile()));
     connect(&m_matrixManager, SIGNAL(progressChanged(int)), ui->progressBar, SLOT(setValue(int)));
     connect(&m_matrixManager, SIGNAL(progressRangeChanged(int,int)), ui->progressBar, SLOT(setRange(int,int)));
-    connect(ui->pushButtonUp, SIGNAL(clicked(bool)), this, SLOT(setCoherenceRange(float,float)));
+    connect(ui->pushButtonUp, SIGNAL(clicked(bool)), this, SLOT(setCoherenceRange(bool)));
 
 }
 
@@ -119,18 +119,40 @@ void GMainWindow::computeFinished()
 
     //win->setShape(Line);
     QPen pen;
-    pen.setWidth(20);
+    pen.setWidth(2);
     pen.setCapStyle(Qt::RoundCap);
-    pen.setColor(Qt::red);
 
-    QList<QPoint *> res;
+    int nb_res = 0;
+    QVector<QList<QVector<QPoint>>> res;
+    QVector<CoherenceWidget*> win;
     res= m_coherenceManager.getResults();
+    for(int i = 0;i<res.size();i++){
+        if(i==0){
+            win.append(new CoherenceWidget("Delta"));
+            pen.setColor(Qt::red);
+        }else if(i==1){
+            win.append(new CoherenceWidget("Theta"));
+            pen.setColor(Qt::green);
+        }else if(i==2){
+            win.append(new CoherenceWidget("Alpha"));
+            pen.setColor(Qt::blue);
+        }else if(i==3){
+            win.append(new CoherenceWidget("Beta"));
+            pen.setColor(Qt::yellow);
+        }else {
+            win.append(new CoherenceWidget("Gamma"));
+            pen.setColor(Qt::gray);
+        }
+        win[i]->setPoints(res[i]);
+        win[i]->setMinimumSize(537,480);
+        win[i]->setMaximumSize(537,480);
+        win[i]->setPen(pen);
+        win[i]->setBrush(QBrush());
+        win[i]->show();
+        nb_res+=res[i].size();
+    }
 
-    win.setPoints(res);
-    win.resize(QSize(537,480));
-    win.setPen(pen);
-    win.setBrush(QBrush());
-    win.show();
+    ui->value_number->setText(QString::number(nb_res));
 
     /*//traitement pour afficher
     QPixmap pix("://Images/EEG 21.png");
@@ -153,9 +175,11 @@ void GMainWindow::computeFinished()
     painter->setBackground(pix);*/
 }
 
-void GMainWindow::setCoherenceRange(float min, float max)
+void GMainWindow::setCoherenceRange(bool e)
 {
-    m_coherenceManager.setRange(min,max);
+    m_coherenceManager.setRange(ui->lineEditMiniRange->text().toFloat(),ui->lineEditMaxRange->text().toFloat());
+    m_matrixManager.raz();
+    m_coherenceManager.raz();
     computeFile();
 
 }

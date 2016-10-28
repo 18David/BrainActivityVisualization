@@ -121,7 +121,8 @@ void GMainWindow::computeFinished()
     QPen pen;
     pen.setWidth(2);
     pen.setCapStyle(Qt::RoundCap);
-
+    int cpt_col=0;
+    int cpt_row=0;
     int nb_res = 0;
     QVector<QList<QVector<QPoint>>> res;
     QVector<CoherenceWidget*> win;
@@ -143,6 +144,7 @@ void GMainWindow::computeFinished()
             win.append(new CoherenceWidget("Gamma"));
             pen.setColor(Qt::gray);
         }
+        win[i]->move(cpt_col*537,cpt_row*537);
         win[i]->setPoints(res[i]);
         win[i]->setMinimumSize(537,480);
         win[i]->setMaximumSize(537,480);
@@ -150,6 +152,11 @@ void GMainWindow::computeFinished()
         win[i]->setBrush(QBrush());
         win[i]->show();
         nb_res+=res[i].size();
+        cpt_col++;
+        if(cpt_col==3){
+            cpt_row++;
+            cpt_col=0;
+        }
     }
 
     ui->value_number->setText(QString::number(nb_res));

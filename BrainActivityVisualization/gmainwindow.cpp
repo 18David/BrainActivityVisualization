@@ -10,6 +10,7 @@
 #include <QTableWidget>
 #include <coherencewidget.h>
 
+
 GMainWindow::GMainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::GMainWindow)
@@ -80,12 +81,10 @@ void GMainWindow::paintEvent(QPaintEvent *evt)
 void GMainWindow::computeFile()
 {
     QList<AbstractMatrixReader *> readers;
-    //QList<QFileInfo> files = dir.entryInfoList(QStringList() << "*.txt", QDir::Files);
-    //for(int i=0;i<files.size();i++){
-        readers.append(new FileNumberStreamReader(m_fileName/*files.at(i).absoluteFilePath()*/));
+
+       readers.append(new FileNumberStreamReader(m_fileName));
 
        m_matrixManager.setReaders(readers);
-       //m_matrixManager.setUseMultithread(useMultithread);
        m_matrixManager.run();
        m_coherenceManager.setMatrix(m_matrixManager.getResults());
        m_coherenceManager.run();
@@ -117,7 +116,6 @@ void GMainWindow::computeFinished()
         }
     }
 
-    //win->setShape(Line);
     QPen pen;
     pen.setWidth(2);
     pen.setCapStyle(Qt::RoundCap);
@@ -129,19 +127,19 @@ void GMainWindow::computeFinished()
     res= m_coherenceManager.getResults();
     for(int i = 0;i<res.size();i++){
         if(i==0){
-            win.append(new CoherenceWidget("Delta"));
+            win.append(new CoherenceWidget(m_fileName.split("/").last()+" - Delta"));
             pen.setColor(Qt::red);
         }else if(i==1){
-            win.append(new CoherenceWidget("Theta"));
+            win.append(new CoherenceWidget(m_fileName.split("/").last()+" - Theta"));
             pen.setColor(Qt::green);
         }else if(i==2){
-            win.append(new CoherenceWidget("Alpha"));
+            win.append(new CoherenceWidget(m_fileName.split("/").last()+" - Alpha"));
             pen.setColor(Qt::blue);
         }else if(i==3){
-            win.append(new CoherenceWidget("Beta"));
+            win.append(new CoherenceWidget(m_fileName.split("/").last()+" - Beta"));
             pen.setColor(Qt::yellow);
         }else {
-            win.append(new CoherenceWidget("Gamma"));
+            win.append(new CoherenceWidget(m_fileName.split("/").last()+" - Gamma"));
             pen.setColor(Qt::gray);
         }
         win[i]->move(cpt_col*537,cpt_row*537);
@@ -155,7 +153,7 @@ void GMainWindow::computeFinished()
         cpt_col++;
         if(cpt_col==3){
             cpt_row++;
-            cpt_col=0;
+            cpt_col=0; //int tab[x][Y][Z]   // tab[0][0][0] =300 ;
         }
     }
 

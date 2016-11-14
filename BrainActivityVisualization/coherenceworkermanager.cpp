@@ -1,5 +1,4 @@
 #include "coherenceworkermanager.h"
-#include "coherenceworker.h"
 
 #include <QPoint>
 

@@ -19,7 +19,6 @@ SOURCES += main.cpp\
     FileNumberStreamReader.cpp \
     MatrixStatisticWorker.cpp \
     MatrixStatisticWorkerManager.cpp \
-    coherenceworker.cpp \
     coherenceworkermanager.cpp \
     coherencewidget.cpp
 
@@ -29,7 +28,6 @@ HEADERS  += gmainwindow.h \
     FileNumberStreamReader.h \
     MatrixStatisticWorker.h \
     MatrixStatisticWorkerManager.h \
-    coherenceworker.h \
     coherenceworkermanager.h \
     MatrixStatisticWorkerManager.h \
     coherencewidget.h

@@ -18,7 +18,7 @@ public class StartMenu : MonoBehaviour {
 
     public void StartGame()
     {
-        SceneManager.LoadScene("addnamefile");
+        SceneManager.LoadScene("VRBrain");
     }
     public void QuitGame()
     {

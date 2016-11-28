@@ -1,0 +1,4 @@
+sceneSetups:
+- path: D:/David/Cours/Unity/Project_cours1/Assets/Scene/CottageStart.unity
+  isLoaded: 1
+  isActive: 1
